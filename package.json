@@ -1,0 +1,19 @@
+{
+  "name": "cs555-project",
+  "version": "1.0.0",
+  "description": "Solar EPC project",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kunal-05/CS555-Project.git"
+  },
+  "author": "Kunal Mandalya, Divya Kamath, Saumya Verma, Ameya Sawant, Mansi Mistry",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kunal-05/CS555-Project/issues"
+  },
+  "homepage": "https://github.com/kunal-05/CS555-Project#readme"
+}
