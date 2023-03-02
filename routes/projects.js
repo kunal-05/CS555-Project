@@ -20,13 +20,16 @@ router.post("/addProject", async (req, res) => {
     let location= body.location
     let size = body.size
     let budget = body.budget
-    let username = req.session.user
+    let owner = req.session.user
+    let status = req.params.status
   const projectList = await projects.createProject(
     name,
     location,
     size,
     budget,
-    username
+    owner,
+    status
+
   );
   return res.status(200).json(projectList);
 });

@@ -3,19 +3,22 @@ const projects = mongoCollections.projects;
 const { ObjectId } = require("mongodb");
 const validator = require("../helper");
 
-const createProject = async (name, location, size, budget, username) => {
+const createProject = async (name, location, size, budget, owner,status) => {
   const project = {
     name: name,
     location: location,
     size: size,
     budget: budget,
-    username: username
+    owner: owner,
+    status: status,
+    date: new Date().toLocaleString()
   };
   const projectCollection = await projects();
   const insertInfo = await projectCollection.insertOne(project);
   if (!insertInfo.acknowledged || insertInfo.insertedCount === 0)
     throw "Could not create the project";
 const projectinfo = await getProjectById(insertInfo.insertedId.toString());
+return projectinfo
 };
 
 const getProjectById = async(id)=>{
