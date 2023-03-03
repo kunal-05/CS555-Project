@@ -19,7 +19,7 @@ const validStringBool = (str) => {
 
 const validPassword = (password)=>{
   if(!validStringBool(password)) return false
-const passRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;
+const passRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{2,}$/;
 return passRegex.test(password)
 }
 // Takes in a string argument.
