@@ -3,7 +3,7 @@ body {
     height: 100%;
     margin: 0;
     /* padding-top: 15px; */
-    background: url("../images/bg.jpg");
+    /* background: url("../images/bg.jpg"); */
     background-size: 100%;
     background-attachment: fixed;
     overflow: auto;
