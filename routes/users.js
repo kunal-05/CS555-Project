@@ -161,6 +161,9 @@ router.post("/login", async (req, res) => {
         req.session.previousRoute = "";
         // return res.redirect(prev);
       }
+      if(req.body.identity=="employee"){
+        return res.redirect("/projects");
+      }
       return res.redirect("/posts");
       //res.status(200).json(myUser);
       // res.render('posts/index');

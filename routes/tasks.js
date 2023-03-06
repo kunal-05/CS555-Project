@@ -16,7 +16,7 @@ router.get("/:id", async (req, res) => {
 });
 
 router.post("/addTask", async (req, res) => {
-    const body = req.params.body
+    const body = req.body
     let description = body.description
     let start_date= body.start_date
     let end_date = body.end_date
@@ -32,3 +32,5 @@ router.post("/addTask", async (req, res) => {
   );
   return res.status(200).json(taskList);
 });
+
+module.exports = router;

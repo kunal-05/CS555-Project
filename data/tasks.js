@@ -29,9 +29,20 @@ const getTaskById = async(id)=>{
     return task;
 }
 
+const getTaskByProjectId = async(project_id)=>{
+  if (!validator.validString(project_id)) throw "id must be given";
+  validator.validId(project_id);
+  project_id = validator.trimString(project_id);
+  const taskCollections = await tasks();
+  const task = await taskCollections.findOne({ project_id: ObjectId(project_id) });
+  if (!task) throw "task with that project_id does not exist";
+  return task;
+}
+
 
 
 module.exports = {
     createTask,
-    getTaskById
+    getTaskById,
+    getTaskByProjectId
 }

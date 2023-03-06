@@ -15,13 +15,14 @@ router.get("/:id", async (req, res) => {
 });
 
 router.post("/addProject", async (req, res) => {
-    const body = req.params.body
+    const body = req.body
+    console.log(body)
     let name = body.name
     let location= body.location
     let size = body.size
     let budget = body.budget
     let owner = req.session.user
-    let status = req.params.status
+    let status = body.status
   const projectList = await projects.createProject(
     name,
     location,
@@ -33,3 +34,5 @@ router.post("/addProject", async (req, res) => {
   );
   return res.status(200).json(projectList);
 });
+
+module.exports = router;

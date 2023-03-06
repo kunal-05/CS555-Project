@@ -2,7 +2,6 @@ const userRoutes = require("./users.js");
 const projectRoutes = require("./projects.js");
 const taskRoutes = require("./tasks.js");
 const express = require("express");
-// module.exports = router;
 const router = express.Router();
 
 const path = require("path");
