@@ -1,4 +1,5 @@
 const userRoutes = require("./users.js");
+const projectRoutes = require("./projects.js");
 const express = require("express");
 // module.exports = router;
 const router = express.Router();
@@ -11,6 +12,7 @@ const constructorMethod = (app) => {
   });
 
   app.use("/", userRoutes);
+  app.use("/projects", projectRoutes);
 
   app.use("*", (req, res) => {
     res.sendStatus(404);
