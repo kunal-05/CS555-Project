@@ -5,12 +5,10 @@ const router = express.Router();
 
 const path = require("path");
 
-
 const constructorMethod = (app) => {
   app.get("/", (req, res) => {
-    res.sendFile(path.resolve("static/index.html"));
+    res.sendFile(path.resolve("static/test-index.html"));
   });
- 
 
   app.use("/", userRoutes);
 
