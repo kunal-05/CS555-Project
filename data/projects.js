@@ -32,9 +32,20 @@ const getProjectById = async(id)=>{
     return project;
 }
 
+const getProjectsByUserId = async(id)=>{
+  if (!validator.validString(id)) throw "id must be given";
+    validator.validId(id);
+    id = validator.trimString(id);
+    const projectCollection = await projects();
+    const project = await projectCollection.find({ owner: id }).toArray();
+    if (!project) throw "Project with that id does not exist";
+    return project;
+
+}
 
 
 module.exports = {
     createProject,
-    getProjectById
+    getProjectById,
+    getProjectsByUserId
 }
