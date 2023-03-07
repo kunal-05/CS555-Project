@@ -92,7 +92,7 @@ router.post("/register", async (req, res) => {
 // GET METHOD for /register route
 router.get("/register", async (req, res) => {
   if (req.session.user) {
-    return res.redirect("/posts");
+    return res.redirect("/projects");
   } else {
     return res.render("register", { userLoggedIn: false, register: true });
   }
@@ -101,7 +101,7 @@ router.get("/register", async (req, res) => {
 // GET METHOD for /login route
 router.get("/login", async (req, res) => {
   if (req.session.user) {
-    return res.redirect("/posts");
+    return res.redirect("/projects");
     
   } else {
     return res.render("login", { userLoggedIn: false });
@@ -161,6 +161,9 @@ router.post("/login", async (req, res) => {
         req.session.previousRoute = "";
         // return res.redirect(prev);
       }
+      if(req.body.identity=="employee"){
+        return res.redirect("/projects");
+      }
       return res.redirect("/posts");
       //res.status(200).json(myUser);
       // res.render('posts/index');
@@ -173,5 +176,9 @@ router.post("/login", async (req, res) => {
       });
     }
   });
-
+  
+  router.get("/logout", async (req, res) => {
+    req.session.destroy();
+    return res.redirect("/");
+  });
   module.exports = router;
