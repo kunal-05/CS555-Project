@@ -25,6 +25,7 @@
     "express-session": "^1.17.3",
     "just-handlebars-helpers": "^1.0.19",
     "mongodb": "^5.1.0",
+    "multer": "^1.4.5-lts.1",
     "trimstring": "^0.2.5",
     "xss": "^1.0.14"
   }

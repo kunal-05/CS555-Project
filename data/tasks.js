@@ -3,13 +3,14 @@ const tasks = mongoCollections.tasks;
 const { ObjectId } = require("mongodb");
 const validator = require("../helper");
 
-const createTask = async (description, start_date, end_date, task_members, project_id) => {
+const createTask = async (description, start_date, end_date, task_members, project_id, taskpict) => {
   const task = {
     description: description,
     start_date: start_date,
     end_date: end_date,
     task_members: task_members,
     project_id: project_id,
+    taskpict: taskpict
   };
   const taskCollections = await tasks();
   const insertInfo = await taskCollections.insertOne(task);

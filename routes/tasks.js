@@ -5,9 +5,23 @@ const router = express.Router();
 const data = require("../data/");
 //const projects = data.projects;
 const tasks = data.tasks;
+const multer = require("multer");
 const validator = require("../helper");
 
+const path = require("path");
 
+var fs = require("fs");
+const { users } = require("../config/mongoCollections");
+// SET STORAGE
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "uploads");
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.fieldname + "-" + Date.now());
+  },
+});
+var upload = multer({ storage: storage });
 
 router.get("/:id", async (req, res) => {
   const id = req.params.id
@@ -15,20 +29,33 @@ router.get("/:id", async (req, res) => {
   return res.status(200).json(taskList);
 });
 
-router.post("/addTask", async (req, res) => {
+router.route("/addTask").post(upload.single("postpic"), async (req, res) => {
     const body = req.body
     let description = body.description
     let start_date= body.start_date
     let end_date = body.end_date
     let task_members = body.task_members
     let project_id = body.project_id
+    var finalimg = ""
+
+    if (!req.file) {
+      finalimg = "";
+    } else {
+      var img = fs.readFileSync(req.file.path);
+      var encode_image = img.toString("base64");
+      finalimg = {
+        contentType: req.file.mimetype,
+        image: Buffer.from(encode_image, "base64"),
+      };
+    }
+
   const taskList = await tasks.createTask(
     description,
     start_date,
     end_date,
     task_members,
-    project_id
-
+    project_id,
+    finalimg
   );
   return res.status(200).json(taskList);
 });
