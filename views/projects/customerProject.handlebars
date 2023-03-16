@@ -3,9 +3,9 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
 
-                <h1>Create Project</h1>
+                <h1>Customer Project</h1>
 
-                <form id="posts-form" method="POST" action="/projects/addProject">
+                <form id="posts-form" method="POST" action="/cust/addCustProject">
 
                     <!-- Input to add Post Title -->
                     <div class="form-group">
@@ -33,7 +33,7 @@
                             size</div>
                     </div>
 
-                    <div class="form-group">
+                    {{!-- <div class="form-group">
                         <label class="budget" for="budget">Project Budget</label>
                         <input type="text" class="form-control" id="budget" name="budget" />
 
@@ -53,15 +53,15 @@
                         </select>
                         <div id="no-gender" class="alert alert-danger div-text" role="alert" hidden>Please
                             select a status</div>
-                    </div>
+                    </div> --}}
                     <!-- Input to upload picture for the Post -->
-                     <div class="form-group">
+                    {{!-- <div class="form-group">
                         <label class="form-label postPicture" for="postPicture">Upload Photo</label>
                         <input type="file" class="form-control" id="postPicture" name="postPicture" accept="image/*" />
 
                         <div class="alert alert-danger div-text" role="alert" id="no-post-picture" hidden>Please input
                             image</div>
-                    </div>
+                    </div> --}}
 
                     <!-- Create Post Button-->
                     <div class="form-group">
