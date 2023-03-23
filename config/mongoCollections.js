@@ -20,5 +20,6 @@ NOTE: YOU WILL NEED TO CHANGE THE CODE BELOW TO HAVE THE COLLECTION(S) REQUIRED 
 module.exports = {
   users: getCollectionFn("users"),
   projects: getCollectionFn("projects"),
-  tasks: getCollectionFn("tasks")
+  tasks: getCollectionFn("tasks"),
+  resources: getCollectionFn("resources")
 };
