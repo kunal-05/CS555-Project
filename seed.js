@@ -1,5 +1,6 @@
 const dbConnection = require("./config/mongoConnection");
 const users = require("./data/users");
+const resources = require("./data/resources");
 const main = async () => {
     const db = await dbConnection.dbConnection();
     await db.dropDatabase();
@@ -108,6 +109,82 @@ const main = async () => {
     )
 
     //Create resource table
+    const resource1 = await resources.createResource(
+        "50-100 ft. tape measure",
+        100,
+        20
+    )
+    const resource2 = await resources.createResource(
+        "Solar Pathfinder",
+        100,
+        120
+    )
+    const resource3 = await resources.createResource(
+        "Maps",
+        100,
+        15
+    )
+    const resource4 = await resources.createResource(
+        "Digital camera",
+        100,
+        550
+    )
+    const resource5 = await resources.createResource(
+        "Angle finder",
+        100,
+        20
+    )
+    const resource6 = await resources.createResource(
+        "Torpedo level",
+        100,
+        20
+    )
+    const resource7 = await resources.createResource(
+        "Nut drivers",
+        100,
+        20
+    )
+    const resource8 = await resources.createResource(
+        "Wire strippers",
+        100,
+        20
+    )
+    const resource9 = await resources.createResource(
+        "Crimpers",
+        100,
+        20
+    )
+    const resource10 = await resources.createResource(
+        "AC/DC multimeter",
+        100,
+        20
+    )
+    const resource11 = await resources.createResource(
+        "Hacksaw",
+        100,
+        20
+    )
+    const resource12 = await resources.createResource(
+        "Slip-joint pliers",
+        100,
+        20
+    )
+    const resource13 = await resources.createResource(
+        "Fuse Pullers",
+        100,
+        20
+    )
+    const resource14 = await resources.createResource(
+        "Cordless drill",
+        100,
+        20
+    )
+    const resource15 = await resources.createResource(
+        "Batteries",
+        100,
+        20
+    )
+
 
     console.log("Done seeding....");
     await dbConnection.closeConnection();
