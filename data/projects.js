@@ -4,6 +4,7 @@ const { ObjectId } = require("mongodb");
 const validator = require("../helper");
 
 const createProject = async (name, location, size, budget, owner,status,start_date,end_date,task_members,request_id) => {
+  task_members.push(owner)
   const project = {
     name: name,
     location: location,
@@ -38,11 +39,12 @@ const getProjectById = async(id)=>{
 }
 
 const getProjectsByUserId = async(id)=>{
+  // if (Object)
   if (!validator.validString(id)) throw "id must be given";
     validator.validId(id);
     id = validator.trimString(id);
     const projectCollection = await projects();
-    const project = await projectCollection.find({ owner: id }).toArray();
+    const project = await projectCollection.find({task_members:{$in:[id]}}).toArray();
     if (!project) throw "Project with that id does not exist";
     return project;
 
