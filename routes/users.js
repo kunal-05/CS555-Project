@@ -181,4 +181,10 @@ router.post("/login", async (req, res) => {
     req.session.destroy();
     return res.redirect("/");
   });
+
+  router.get("/allEmployees",async(req,res)=>{
+    const allEmployees = await users.getAllEmployees("employee");
+    return res.json(allEmployees)
+
+  })
   module.exports = router;

@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
 
-                <h1>Create post</h1>
+                <h1>Create Project</h1>
 
                 <form id="posts-form" method="POST" action="/projects/addProject">
 
@@ -37,6 +37,27 @@
                         <div class="alert alert-danger div-text" role="alert" id="no-post-title" hidden>Please enter Project Budget</div>
                     </div>
 
+                    <div class="form-group">
+                        <label class="startdate" for="startdate">Start Date</label>
+                        <input type="text" class="form-control" id="startdate" name="startdate" />
+
+                        <div class="alert alert-danger div-text" role="alert" id="no-post-title" hidden>Please enter Project start date</div>
+                    </div>
+                     <div class="form-group">
+                        <label class="endate" for="endate">End Date</label>
+                        <input type="text" class="form-control" id="endate" name="endate" />
+
+                        <div class="alert alert-danger div-text" role="alert" id="no-post-title" hidden>Please enter Project end date</div>
+                
+                    <div class="form-outline mb-4">
+                                    <label class="form-label identity" for="project_members">Project members</label>
+                                    <select class="project_members" id="project_members" name="project_members" multiple>
+                                        <option value="">Select team members</option>
+                                       
+                                    </select>
+                                    <div id="no-gender" class="alert alert-danger div-text" role="alert" hidden>Please
+                                        select a status</div>
+                                </div>
                     <div class="form-outline mb-4">
                                     <label class="form-label identity" for="identity">Project status</label>
                                     <select class="custom-select" id="status" name="status" required>
@@ -78,5 +99,21 @@
             {{/if}}
         </div>
     </div>
-
+<script>
+  $(document).ready(function() {
+    // make an AJAX call to the API endpoint
+    $.ajax({
+      url: '/allEmployees', // replace with your API endpoint URL
+      success: function(options) {
+        // populate the dropdown options
+        for (var i = 0; i < options.length; i++) {
+          $('#project_members').append($('<option>', {
+            value: options[i]._id,
+            text: options[i].firstName
+          }));
+        }
+      }
+    });
+  });
+</script>
 </main>

@@ -39,6 +39,8 @@ router.post("/addProject", async (req, res) => {
     let budget = body.budget
     let owner = req.session.user
     let status = body.status
+    let task_members = body.task_members
+    let request_id = body.request_id
   const projectList = await projects.createProject(
     name,
     location,
