@@ -1,0 +1,36 @@
+<!-- all handlerbars -->
+<main>
+
+    <div class="container test">
+
+        <br>
+
+        {{#each allProject}}
+        <div class="card post-details-card mb-3">
+            <div class="card-body">
+
+                <div class="row">
+                    <div class="col-sm">
+
+                        <a href="/projects/{{this._id}}">
+                        <h2>{{this.name}}</h2>
+                        </a>
+                        <p>Location: {{this.location}}</p>
+                        <p>Size: {{this.size}}</p>
+                        <p>Status: {{this.status}}</p>
+                        {{!-- <p class="postBodyText">{{this.postBody}} </p> --}}
+                        <p>Budget: {{this.budget}}</p>
+                        <p>Date created: {{this.date}}</p>
+                    </div>
+                    <div class="col-sm">
+                        <p class="text-end">{{this.owner}}</p>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        {{/each}}
+
+    </div>
+</main>
