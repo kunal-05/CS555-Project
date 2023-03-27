@@ -33,7 +33,14 @@
                             size</div>
                     </div>
 
-                    <div class="form-group">
+                     <div class="form-group">
+                        <label class="request_id" for="request_id">Request Id</label>
+                        <input type="text" class="form-control" id="request_id" name="request_id" />
+
+                        <div class="alert alert-danger div-text" role="alert" id="no-post-title" hidden>Please enter request_id</div>
+                    </div>
+
+                     <div class="form-group">
                         <label class="budget" for="budget">Project Budget</label>
                         <input type="text" class="form-control" id="budget" name="budget" />
 
@@ -41,6 +48,27 @@
                             Project Budget</div>
                     </div>
 
+                    <div class="form-group">
+                        <label class="startdate" for="startdate">Start Date</label>
+                        <input type="text" class="form-control" id="startdate" name="startdate" />
+
+                        <div class="alert alert-danger div-text" role="alert" id="no-post-title" hidden>Please enter Project start date</div>
+                    </div>
+                     <div class="form-group">
+                        <label class="endate" for="endate">End Date</label>
+                        <input type="text" class="form-control" id="endate" name="endate" />
+
+                        <div class="alert alert-danger div-text" role="alert" id="no-post-title" hidden>Please enter Project end date</div>
+                
+                    <div class="form-outline mb-4">
+                                    <label class="form-label identity" for="task_members">Project members</label>
+                                    <select class="task_members" id="task_members" name="task_members" multiple>
+                                        <option value="">Select team members</option>
+                                       
+                                    </select>
+                                    <div id="no-gender" class="alert alert-danger div-text" role="alert" hidden>Please
+                                        select a status</div>
+                                </div>
                     <div class="form-outline mb-4">
                         <label class="form-label identity" for="identity">Project status</label>
                         <select class="custom-select" id="status" name="status" required>
@@ -55,13 +83,6 @@
                             select a status</div>
                     </div>
                     <!-- Input to upload picture for the Post -->
-                     <div class="form-group">
-                        <label class="form-label postPicture" for="postPicture">Upload Photo</label>
-                        <input type="file" class="form-control" id="postPicture" name="postPicture" accept="image/*" />
-
-                        <div class="alert alert-danger div-text" role="alert" id="no-post-picture" hidden>Please input
-                            image</div>
-                    </div>
 
                     <!-- Create Post Button-->
                     <div class="form-group">
@@ -83,5 +104,21 @@
             {{/if}}
         </div>
     </div>
-
+<script>
+  $(document).ready(function() {
+    // make an AJAX call to the API endpoint
+    $.ajax({
+      url: '/allEmployees', // replace with your API endpoint URL
+      success: function(options) {
+        // populate the dropdown options
+        for (var i = 0; i < options.length; i++) {
+          $('#task_members').append($('<option>', {
+            value: options[i]._id,
+            text: options[i].firstName
+          }));
+        }
+      }
+    });
+  });
+</script>
 </main>

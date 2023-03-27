@@ -21,5 +21,6 @@ module.exports = {
   users: getCollectionFn("users"),
   projects: getCollectionFn("projects"),
   tasks: getCollectionFn("tasks"),
+  resources: getCollectionFn("resources"),
   custProjects: getCollectionFn("custProjects"),
 };
