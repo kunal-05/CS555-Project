@@ -3,7 +3,7 @@ const projectRoutes = require("./projects.js");
 const taskRoutes = require("./tasks.js");
 const express = require("express");
 const router = express.Router();
-
+const custRoute = require("./customerProject");
 const path = require("path");
 
 const constructorMethod = (app) => {
@@ -14,6 +14,7 @@ const constructorMethod = (app) => {
   app.use("/", userRoutes);
   app.use("/projects", projectRoutes);
   app.use("/projects/tasks", taskRoutes);
+  app.use("/cust", custRoute);
 
   app.use("*", (req, res) => {
     res.sendStatus(404);

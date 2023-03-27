@@ -37,16 +37,21 @@
 
             <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
                 <ul class="navbar-nav mr-auto">
+
+                    {{#if userLoggedIn}}
                     <li class="nav-item active">
                         <a href="/" class="nav-link">Home</a>
+                    </li>
+                    </li class="nav-item">
+                    <a href="/cust/addCustProject" id="custReq" class="nav-link">Request</a>
+                    </li>
+                    <li class="nav-item"><a href="/projects/addProject" id="createPost" class="nav-link">Create
+                            Projects</a>
                     </li>
                     <li class="nav-item">
                         <a href="/projects" id="postList" class="nav-link">Projects</a>
                     </li>
-                    {{#if userLoggedIn}}
-                    <li class="nav-item"><a href="/projects/addProject" id="createPost" class="nav-link">Create Projects</a>
-                    </li>
-                    <li class="nav-item"><a href="/users/myProfile" id="users" class="nav-link">Profile</a></li>
+                    <li class="nav-item"><a href="/myProfile" id="users" class="nav-link">Profile</a></li>
                     <li class="nav-item"><a href="/logout" id="logout" class="nav-link">Logout</a></li>
                     {{else}}
                     <li class="nav-item"><a href="/login" id="login" class="nav-link">Login</a></li>
