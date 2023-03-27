@@ -12,7 +12,7 @@ router.get("/", async (req, res) => {
 if (req.session.user){
   try{
   const allProject = await projects.getProjectsByUserId  (req.session.user)
-  return res.render("projects/index", { allProject: allProject, userLoggedIn: true });
+  return res.render("projects/index", { allProject: allProject, userLoggedIn: true , identity:req.session.identity});
   }
   catch(e){
     return res.json({"ERROR":e})
@@ -39,13 +39,21 @@ router.post("/addProject", async (req, res) => {
     let budget = body.budget
     let owner = req.session.user
     let status = body.status
+    let startdate = body.startdate
+    let endate = body.endate
+    let task_members = body.task_members
+    let request_id = body.request_id
   const projectList = await projects.createProject(
     name,
     location,
     size,
     budget,
     owner,
-    status
+    status,
+    startdate,
+    endate,
+    task_members,
+    request_id
 
   );
   return res.redirect("/projects")

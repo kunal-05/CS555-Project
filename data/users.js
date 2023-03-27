@@ -109,8 +109,6 @@ const updateUser = async (id, updatedUser) => {
     updatedUserData.lastName = updatedUser.lastName;
   }
 
-
-
   if (updatedUser.phoneNumber) {
     validator.validatePhoneNumber(updatedUser.phoneNumber);
     updatedUser.phoneNumber = validator.trimString(updatedUser.phoneNumber);
@@ -140,6 +138,13 @@ const updateUser = async (id, updatedUser) => {
   return await getUserById(id);
 };
 
+const getAllEmployees = async (identity) => {
+  const userCollection = await users();
+  const user = await userCollection.find({ identity: identity }).toArray();
+  if (!user) throw "No users found";
+  return user;
+};
+
 
 
 module.exports = {
@@ -147,5 +152,5 @@ module.exports = {
   getAllUsers,
   getUserById,
   updateUser,
-  
+  getAllEmployees
 };
