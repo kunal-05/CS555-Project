@@ -3,11 +3,10 @@ const custProjects = mongoCollections.custProjects;
 const { ObjectId } = require("mongodb");
 const validator = require("../helper");
 
-const createCustomerRequest = async (name, location, size) => {
+// add request table - reqId and custId
+const createCustomerRequest = async (userId) => {
   const customerRequest = {
-    name: name,
-    location: location,
-    size: size,
+    userId: userId,
   };
   const projectCollection = await custProjects();
   const insertInfo = await projectCollection.insertOne(customerRequest);
@@ -17,6 +16,9 @@ const createCustomerRequest = async (name, location, size) => {
   const projectinfo = await getProjectById(newId.toString());
   return projectinfo;
 };
+
+// add request table - reqId and custId
+
 const getProjectById = async (id) => {
   if (!validator.validString(id)) throw "id must be given";
   validator.validId(id);
@@ -27,12 +29,13 @@ const getProjectById = async (id) => {
   return project;
 };
 
+// add request table - reqId and custId
 const getProjectsByUserId = async (id) => {
   if (!validator.validString(id)) throw "id must be given";
   validator.validId(id);
   id = validator.trimString(id);
   const projectCollection = await custProjects();
-  const project = await projectCollection.find({ owner: id }).toArray();
+  const project = await projectCollection.find({ userId: id }).toArray();
   if (!project) throw "Project with that id does not exist";
   return project;
 };

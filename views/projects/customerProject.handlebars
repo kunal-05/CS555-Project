@@ -3,70 +3,13 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
 
-                <h1>Customer Project</h1>
+                <h1>Customer Project Request</h1>
 
                 <form id="posts-form" method="POST" action="/cust/addCustProject">
-
-                    <!-- Input to add Post Title -->
-                    <div class="form-group">
-                        <label class="name" for="name">Project Name</label>
-                        <input type="text" class="form-control" id="name" name="name" />
-
-                        <div class="alert alert-danger div-text" role="alert" id="no-post-title" hidden>Please enter
-                            Project Title</div>
-                    </div>
-
-                    <!-- Input to add Apartment/ Post Details -->
-                    <div class="form-group">
-                        <label class="location" for="location">Location</label>
-                        <input type="text" class="form-control" id="location" name="location" />
-
-                        <div class="alert alert-danger div-text" role="alert" id="no-post-title" hidden>Please enter
-                            Project Location</div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="size" for="size">Size</label>
-                        <input type="text" class="form-control" id="size" name="size" />
-
-                        <div class="alert alert-danger div-text" role="alert" id="no-post-title" hidden>Please enter
-                            size</div>
-                    </div>
-
-                    {{!-- <div class="form-group">
-                        <label class="budget" for="budget">Project Budget</label>
-                        <input type="text" class="form-control" id="budget" name="budget" />
-
-                        <div class="alert alert-danger div-text" role="alert" id="no-post-title" hidden>Please enter
-                            Project Budget</div>
-                    </div>
-
-                    <div class="form-outline mb-4">
-                        <label class="form-label identity" for="identity">Project status</label>
-                        <select class="custom-select" id="status" name="status" required>
-                            <option value="" selected disabled>Select your status</option>
-                            <option value="Not started">Not started</option>
-                            <option value="In Progress">In Progress</option>
-                            <option value="On Hold">On Hold</option>
-                            <option value="Completed">Completed</option>
-
-                        </select>
-                        <div id="no-gender" class="alert alert-danger div-text" role="alert" hidden>Please
-                            select a status</div>
-                    </div> --}}
-                    <!-- Input to upload picture for the Post -->
-                    {{!-- <div class="form-group">
-                        <label class="form-label postPicture" for="postPicture">Upload Photo</label>
-                        <input type="file" class="form-control" id="postPicture" name="postPicture" accept="image/*" />
-
-                        <div class="alert alert-danger div-text" role="alert" id="no-post-picture" hidden>Please input
-                            image</div>
-                    </div> --}}
-
                     <!-- Create Post Button-->
                     <div class="form-group">
                         <button type="submit" class="btn btn-success">
-                            Create
+                            Create Request
                         </button>
                     </div>
 

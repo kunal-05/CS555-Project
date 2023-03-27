@@ -6,21 +6,22 @@ const data = require("../data/");
 const custProjects = data.custProjects;
 const validator = require("../helper");
 
-// router.get("/", async (req, res) => {
-//   if (req.session.user) {
-//     try {
-//       const allProject = await projects.getProjectsByUserId(req.session.user);
-//       return res.render("projects/index", {
-//         allProject: allProject,
-//         userLoggedIn: true,
-//       });
-//     } catch (e) {
-//       return res.json({ ERROR: e });
-//     }
-//   }
-//   // const projectList = await projects.getProjectById(id);
-//   // return res.status(200).json(projectList);
-// });
+router.get("/", async (req, res) => {
+  if (req.session.user) {
+    try {
+      const allRequest = await custProjects.getProjectsByUserId(
+        req.session.user
+      );
+      return res.render("home", {
+        userLoggedIn: true,
+      });
+    } catch (e) {
+      return res.json({ ERROR: e });
+    }
+  }
+  // const projectList = await projects.getProjectById(id);
+  // return res.status(200).json(projectList);
+});
 
 router.get("/addCustProject", async (req, res) => {
   // if (req.session.user) {
@@ -31,24 +32,10 @@ router.get("/addCustProject", async (req, res) => {
   // }
 });
 router.post("/addCustProject", async (req, res) => {
-  const body = req.body;
-  console.log(body);
-  let name = body.name;
-  let location = body.location;
-  let size = body.size;
-  // let budget = body.budget;
-  // let owner = req.session.user;
-  // let status = body.status;
-
-  const projectList = await custProjects.createCustomerRequest(
-    name,
-    location,
-    size
-    // budget,
-    // owner,
-    // status
-  );
-  return res.status(200).json(projectList);
+  const userId = req.session.user;
+  console.log(userId);
+  const projectList = await custProjects.createCustomerRequest(userId);
+  return res.render("home");
 });
 
 // router.get("/:id", async (req, res) => {
