@@ -1,6 +1,7 @@
 const userRoutes = require("./users.js");
 const projectRoutes = require("./projects.js");
 const taskRoutes = require("./tasks.js");
+const commentRoutes = require("./comments.js");
 const express = require("express");
 const router = express.Router();
 
@@ -14,6 +15,7 @@ const constructorMethod = (app) => {
   app.use("/", userRoutes);
   app.use("/projects", projectRoutes);
   app.use("/projects/tasks", taskRoutes);
+  app.use("/comments", commentRoutes);
 
   app.use("*", (req, res) => {
     res.sendStatus(404);
