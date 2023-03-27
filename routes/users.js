@@ -144,17 +144,15 @@ router.post("/login", async (req, res) => {
 
   if (match) {
     req.session.user = myUser._id.toString();
-    // Redirect the user to their previous route after thsey login if it exists
-    // Otherwise, bring them to the home/post list page
-    let prev = req.session.previousRoute;
-    if (prev) {
-      req.session.previousRoute = "";
-      // return res.redirect(prev);
-    }
-    if (req.body.identity == "employee") {
-      return res.redirect("/projects");
-    }
-    return res.redirect("/cust/addCustProject");
+    req.session.identity = req.body.identity;
+    // if (req.body.identity === "admin") {
+    //   return res.redirect("/");
+    // }
+    // if (req.body.identity === "employee") {
+    console.log(req.session.identity)
+    return res.redirect("/projects");
+    // }
+    // return res.redirect("/cust/addCustProject");
     //res.status(200).json(myUser);
     // res.render('posts/index');
   } else {
@@ -180,9 +178,10 @@ router.get("/myProfile", async (req, res) => {
       return res.render("profile", {
         userInfo: userInfo,
         userLoggedIn: true,
+        identity:req.session.identity
       });
     } catch (e) {
-      return res.status(500).render("error", { errors: e, userLoggedIn: true });
+      return res.status(500).render("error", { errors: e, userLoggedIn: true, identity:req.session.identity });
     }
   } else {
     return res.redirect("/login");

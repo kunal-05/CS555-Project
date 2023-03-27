@@ -40,8 +40,16 @@ const getProjectsByUserId = async (id) => {
   return project;
 };
 
+//get all requests
+const getAllRequest = async()=>{
+  const projectCollection = await custProjects();
+  const project = await projectCollection.find({}).toArray();
+  return project
+}
+
 module.exports = {
   createCustomerRequest,
   getProjectById,
   getProjectsByUserId,
+  getAllRequest
 };

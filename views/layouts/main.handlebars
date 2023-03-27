@@ -37,17 +37,22 @@
 
             <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
                 <ul class="navbar-nav mr-auto">
-
                     {{#if userLoggedIn}}
                     <li class="nav-item active">
                         <a href="/" class="nav-link">Home</a>
                     </li>
-                    </li class="nav-item">
-                    <a href="/cust/addCustProject" id="custReq" class="nav-link">Request</a>
+                    {{#if (eq identity "customer")}}
+                    <li class="nav-item">
+                    <a href="/cust/addCustProject" id="custReq" class="nav-link">Create Request</a>
                     </li>
+                    {{else if (eq identity "admin")}}
                     <li class="nav-item"><a href="/projects/addProject" id="createPost" class="nav-link">Create
                             Projects</a>
                     </li>
+                    <li class="nav-item">
+                        <a href="/cust" id="postList" class="nav-link">Get Request</a>
+                    </li>
+                    {{/if}}
                     <li class="nav-item">
                         <a href="/projects" id="postList" class="nav-link">Projects</a>
                     </li>

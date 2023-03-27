@@ -12,7 +12,7 @@ router.get("/", async (req, res) => {
 if (req.session.user){
   try{
   const allProject = await projects.getProjectsByUserId  (req.session.user)
-  return res.render("projects/index", { allProject: allProject, userLoggedIn: true });
+  return res.render("projects/index", { allProject: allProject, userLoggedIn: true , identity:req.session.identity});
   }
   catch(e){
     return res.json({"ERROR":e})
