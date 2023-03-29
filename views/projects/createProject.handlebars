@@ -25,6 +25,14 @@
                             Project Location</div>
                     </div>
 
+                    <!-- Input to upload picture for the Site -->
+                    <div class="form-group">
+                        <label class="form-label postPicture" for="postPicture">Upload Photo</label>
+                        <input type="file" class="form-control" id="postPicture" name="postPicture" accept="image/*" />
+
+                        <div class="alert alert-danger div-text" role="alert" id="no-post-picture" hidden>Please input image</div>
+                    </div>
+
                     <div class="form-group">
                         <label class="size" for="size">Size</label>
                         <input type="text" class="form-control" id="size" name="size" />
