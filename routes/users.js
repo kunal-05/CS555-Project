@@ -21,7 +21,6 @@ router.post("/register", async (req, res) => {
   let phoneNumber = xss(validator.trimString(req.body.phoneNumber));
   let address = xss(validator.trimString(req.body.Address));
   let identity = req.body.identity;
-  
 
   if (
     !validator.validStringBool(firstName) ||
@@ -41,8 +40,6 @@ router.post("/register", async (req, res) => {
   // if (typeof address === "string") {
   //   address = parseInt(age);
   // }
-
-
 
   if (errors.length > 0) {
     return res.status(400).render("register", {
@@ -72,7 +69,6 @@ router.post("/register", async (req, res) => {
   }
 
   try {
-    
     const user = await users.createUser(
       firstName,
       lastName,
@@ -82,7 +78,6 @@ router.post("/register", async (req, res) => {
       address,
       identity
     );
-    
 
     return res.redirect("/login");
   } catch (e) {
@@ -102,83 +97,99 @@ router.get("/register", async (req, res) => {
 router.get("/login", async (req, res) => {
   if (req.session.user) {
     return res.redirect("/projects");
-    
   } else {
     return res.render("login", { userLoggedIn: false });
   }
 });
 //POST METHOD for /login route
 router.post("/login", async (req, res) => {
-    const emailId = validator.trimString(req.body.emailId);
-    const password = req.body.password;
-    let errors = [];
-    try {
-      if (!validator.validEmail(emailId)) {
-        errors.push("Email id cannot be empty");
-      }
-    } catch (e) {
+  const emailId = validator.trimString(req.body.emailId);
+  const password = req.body.password;
+  let errors = [];
+  try {
+    if (!validator.validEmail(emailId)) {
       errors.push("Email id cannot be empty");
     }
-  
-    if (!password) {
-      errors.push("Password cannot be empty");
-    }
-    if (errors.length > 0) {
-      return res.status(400).render("login", {
-        errors: errors,
-        hasErrors: true,
-        userLoggedIn: false,
-      });
-    }
-    //if (!validator.validPassword(password)) errors.push("Invalid password.");
-    const userCollection = await userData();
-    const myUser = await userCollection.findOne({
-      emailId: emailId.toLowerCase(),
+  } catch (e) {
+    errors.push("Email id cannot be empty");
+  }
+
+  if (!password) {
+    errors.push("Password cannot be empty");
+  }
+  if (errors.length > 0) {
+    return res.status(400).render("login", {
+      errors: errors,
+      hasErrors: true,
+      userLoggedIn: false,
     });
-  
-    if (!myUser) errors.push("Emailid or password does not match.");
-    if (errors.length > 0) {
-      return res.status(401).render("login", {
-        errors: errors,
-        hasErrors: true,
-        userLoggedIn: false,
-      });
-    }
-
-    
-    // const hashedPassword = await bcrypt.hash(myUser.password, saltRounds);
-  
-    // let match = await bcrypt.compare(password,hashedPassword);
-
-    let match = await bcrypt.compare(password,myUser.password);
-  
-    if (match) {
-      req.session.user = myUser._id.toString();
-      // Redirect the user to their previous route after thsey login if it exists
-      // Otherwise, bring them to the home/post list page
-      let prev = req.session.previousRoute;
-      if (prev) {
-        req.session.previousRoute = "";
-        // return res.redirect(prev);
-      }
-      if(req.body.identity=="employee"){
-        return res.redirect("/projects");
-      }
-      return res.redirect("/posts");
-      //res.status(200).json(myUser);
-      // res.render('posts/index');
-    } else {
-      errors.push("Emailid or password does not match");
-      return res.status(401).render("login", {
-        errors: errors,
-        hasErrors: true,
-        userLoggedIn: false,
-      });
-    }
+  }
+  //if (!validator.validPassword(password)) errors.push("Invalid password.");
+  const userCollection = await userData();
+  const myUser = await userCollection.findOne({
+    emailId: emailId.toLowerCase(),
   });
-  
-  router.get("/logout", async (req, res) => {
-    req.session.destroy();
-    return res.redirect("/");
-  });
-  module.exports = router;
+
+  if (!myUser) errors.push("Emailid or password does not match.");
+  if (errors.length > 0) {
+    return res.status(401).render("login", {
+      errors: errors,
+      hasErrors: true,
+      userLoggedIn: false,
+      //boolean to check identity
+    });
+  }
+
+  let match = await bcrypt.compare(password, myUser.password);
+
+  if (match) {
+    req.session.user = myUser._id.toString();
+    req.session.identity = req.body.identity;
+    // if (req.body.identity === "admin") {
+    //   return res.redirect("/");
+    // }
+    // if (req.body.identity === "employee") {
+    console.log(req.session.identity)
+    return res.redirect("/projects");
+    // }
+    // return res.redirect("/cust/addCustProject");
+    //res.status(200).json(myUser);
+    // res.render('posts/index');
+  } else {
+    errors.push("Emailid or password does not match");
+    return res.status(401).render("login", {
+      errors: errors,
+      hasErrors: true,
+      userLoggedIn: false,
+    });
+  }
+});
+
+router.get("/logout", async (req, res) => {
+  req.session.destroy();
+  return res.redirect("/");
+});
+//GET METHOD for myProfle route
+router.get("/myProfile", async (req, res) => {
+  if (req.session.user) {
+    try {
+      const userInfo = await users.getUserById(req.session.user);
+      // return res.status(200).json(userInfo);
+      return res.render("profile", {
+        userInfo: userInfo,
+        userLoggedIn: true,
+        
+      });
+    } catch (e) {
+      return res.status(500).render("error", { errors: e, userLoggedIn: true, identity:req.session.identity });
+    }
+  } else {
+    return res.redirect("/login");
+  }
+});
+router.get("/allEmployees",async(req,res)=>{
+  const allEmployees = await users.getAllEmployees("employee");
+  return res.json(allEmployees)
+
+})
+module.exports = router;
