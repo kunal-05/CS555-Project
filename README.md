@@ -4,10 +4,16 @@
 ## Table of Contents
 
 - [About the Project](#about-the-project)
+- [How to run ](#how-to-run)
 - [Contributors](#contributors)
 
 ## About The Project
 The aim of this project is to build a product that eases tracking and management of solar installation process. 
+
+##  How to run
+- npm i ( to install all dependencies)
+- npm run seed (to preload with dummy data)
+- npm run start (to run the application)
 
 ### Contributors
 

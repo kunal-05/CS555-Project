@@ -17,7 +17,8 @@ const createProject = async (name, location, size, budget, owner,status,start_da
     end_date: end_date,
     task_members: task_members,
     resources_info:[],
-    request_id: request_id
+    request_id: request_id,
+    tasks:[]
   };
   const projectCollection = await projects();
   const insertInfo = await projectCollection.insertOne(project);

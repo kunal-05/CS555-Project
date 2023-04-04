@@ -1,0 +1,120 @@
+<main>
+
+    <div class="container">
+
+        <div class="card mt-3 mb-3 shadow-sm p-3 mb-5 bg-white rounded">
+            <p>Name:{{projects.name}}</p>
+            <p>Start date:{{projects.start_date}}</p>
+            <p>Status:{{projects.status}}</p>
+            <p>Location:{{projects.location}}</p>
+            <p>Budget:{{projects.budget}}</p>
+            <div class="card mt-3 mb-3 shadow-sm p-3 mb-5 bg-white rounded">
+
+                <form id="posts-form" method="POST" action="/projects/tasks/addTask">
+                    <input type="hidden" name="project_id" value="{{projects._id}}" />
+                    <label class="name" for="name">Task Description</label>
+                    <input type="text" class="form-control" id="description" name="description" />
+
+                    <div class="form-outline mb-4">
+                        <label class="form-label identity" for="task_members">Project members</label>
+                        <select class="task_members" id="task_members" name="task_members" multiple>
+                            <option value="">Select team members</option>
+
+                        </select>
+                        <div id="no-gender" class="alert alert-danger div-text" role="alert" hidden>Please
+                            select a status</div>
+                    </div>
+                    <div class="form-outline mb-4">
+                        <label class="form-label identity" for="identity">Task status</label>
+                        <select class="custom-select" id="task_status" name="task_status" required>
+                            <option value="" selected disabled>Select your status</option>
+                            <option value="Not started">Not started</option>
+                            <option value="In Progress">In Progress</option>
+                            <option value="On Hold">On Hold</option>
+                            <option value="Completed">Completed</option>
+
+                        </select>
+                        <!-- Create Post Button-->
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-success">
+                                Create a task
+                            </button>
+                        </div>
+
+                </form>
+            </div>
+
+        </div>
+        <div class="card mt-3 mb-3 shadow-sm p-3 mb-5 bg-white rounded">
+            <p>Not Started:</p>
+            {{#each projects.tasks}}
+            {{#if (eq this.task_status "Not started")}}
+            <div class="card mt-3 mb-3 shadow-sm p-3 mb-5 bg-white rounded">
+                <p>Name:{{this.description}}</p>
+                <p>Status:{{this.task_status}}</p>
+                {{/if}}
+                {{/each}}
+            </div>
+        </div>
+
+        <div class="card mt-3 mb-3 shadow-sm p-3 mb-5 bg-white rounded">
+            <p>On Hold:</p>
+            {{#each projects.tasks}}
+            {{#if (eq this.task_status "On Hold")}}
+            <div class="card mt-3 mb-3 shadow-sm p-3 mb-5 bg-white rounded">
+                <p>Name:{{this.description}}</p>
+                <p>Status:{{this.task_status}}</p>
+                {{/if}}
+                {{/each}}
+            </div>
+        </div>
+
+        <div class="card mt-3 mb-3 shadow-sm p-3 mb-5 bg-white rounded">
+            <p>In Progress:</p>
+            {{#each projects.tasks}}
+           
+            {{#if (eq this.task_status "In Progress")}}
+                <p>Name:{{this.description}}</p>
+                <p>Status:{{this.task_status}}</p>
+                <br>
+                <br>
+                {{/if}}
+                {{/each}}
+            </div>
+        </div>
+
+        <div class="card mt-3 mb-3 shadow-sm p-3 mb-5 bg-white rounded">
+            <p>Completed:</p>
+            {{#each projects.tasks}}
+            {{#if (eq this.task_status "Completed")}}
+            <div class="card mt-3 mb-3 shadow-sm p-3 mb-5 bg-white rounded">
+                <p>Name:{{this.description}}</p>
+                <p>Status:{{this.task_status}}</p>
+                {{/if}}
+                {{/each}}
+            </div>
+
+
+
+        </div>
+
+        <script>
+            $(document).ready(function () {
+                // make an AJAX call to the API endpoint
+                $.ajax({
+                    url: '/allEmployees', // replace with your API endpoint URL
+                    success: function (options) {
+                        // populate the dropdown options
+                        for (var i = 0; i < options.length; i++) {
+                            $('#task_members').append($('<option>', {
+                                value: options[i]._id,
+                                text: options[i].firstName
+                            }));
+                        }
+                    }
+                });
+            });
+        </script>
+    </div>
+
+</main>
