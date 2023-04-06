@@ -5,6 +5,7 @@ const mongoCollections = require("../config/mongoCollections");
 const router = express.Router();
 const data = require("../data/");
 const projects = data.projects;
+const resources = require("../data/resources");
 const validator = require("../helper");
 
 router.get("/", async (req, res) => {
@@ -23,6 +24,11 @@ router.get("/", async (req, res) => {
   // const projectList = await projects.getProjectById(id);
   // return res.status(200).json(projectList);
 });
+router.get("/resources",async(req,res)=>{
+  const allResource = await resources.getAllResources();
+  return res.json(allResource)
+
+})
 
 router.get("/addProject", async (req, res) => {
   if (req.session.user) {
@@ -39,22 +45,22 @@ router.post("/addProject", async (req, res) => {
   let size = body.size;
   let budget = body.budget;
   let owner = req.session.user;
-  let status = body.status;
   let startdate = body.startdate;
   let endate = body.endate;
   let task_members = body.task_members;
   let request_id = body.request_id;
+  let resources = body.resource;
   const projectList = await projects.createProject(
     name,
     location,
     size,
     budget,
     owner,
-    status,
     startdate,
     endate,
     task_members,
-    request_id
+    request_id,
+    resources
   );
   return res.redirect("/projects");
 });
@@ -90,5 +96,7 @@ router.get("/:id", async (req, res) => {
   }
   //return res.status(200).json(projectList);
 });
+
+
 
 module.exports = router;

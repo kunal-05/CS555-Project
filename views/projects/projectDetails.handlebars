@@ -8,6 +8,8 @@
             <p>Status:{{projects.status}}</p>
             <p>Location:{{projects.location}}</p>
             <p>Budget:{{projects.budget}}</p>
+            <p>Resources:{{projects.resource}}</p>
+           
             <div class="card mt-3 mb-3 shadow-sm p-3 mb-5 bg-white rounded">
 
                 <form id="posts-form" method="POST" action="/projects/tasks/addTask">
@@ -185,6 +187,24 @@
                         // populate the dropdown options
                         for (var i = 0; i < options.length; i++) {
                             $('#task_members').append($('<option>', {
+                                value: options[i]._id,
+                                text: options[i].firstName
+                            }));
+                        }
+                    }
+                });
+            });
+        </script>
+
+        <script>
+            $(document).ready(function () {
+                // make an AJAX call to the API endpoint
+                $.ajax({
+                    url: '/projects/resources', // replace with your API endpoint URL
+                    success: function (options) {
+                        // populate the dropdown options
+                        for (var i = 0; i < options.length; i++) {
+                            $('#resource').append($('<p>', {
                                 value: options[i]._id,
                                 text: options[i].firstName
                             }));
