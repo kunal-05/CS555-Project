@@ -73,35 +73,44 @@
                                 select a status</div>
                         </div>
                         <div class="form-outline mb-4">
-                            <label class="form-label identity" for="identity">Project status</label>
-                            <select class="custom-select" id="status" name="status" required>
-                                <option value="" selected disabled>Select your status</option>
-                                <option value="Not started">Not started</option>
+                            <label class="form-label identity" for="identity">Select Resources</label>
+                            <select class="resource" id="resource" name="resource" multiple>
+                                <option value="" selected disabled>Select your resources</option>
+                                {{!-- <option value="Not started">Not started</option>
                                 <option value="In Progress">In Progress</option>
                                 <option value="On Hold">On Hold</option>
-                                <option value="Completed">Completed</option>
+                                <option value="Completed">Completed</option> --}}
 
-                            </select>
-                            <div id="no-gender" class="alert alert-danger div-text" role="alert" hidden>Please
-                                select a status</div>
-                        </div>
-                        <!-- Input to upload picture for the Post -->
-                        <!-- Input to upload picture for the Post -->
-                        <div class="form-group">
-                            <label class="form-label postPicture" for="postPicture">Upload Photo</label>
-                            <input type="file" class="form-control" id="postPicture" name="postPicture"
-                                accept="image/*" />
+                                <div class="form-outline mb-4">
+                                    <label class="form-label identity" for="task_members">Project members</label>
+                                    <select class="task_members" id="task_members" name="task_members" multiple>
+                                        <option value="">Select team members</option>
 
-                            <div class="alert alert-danger div-text" role="alert" id="no-post-picture" hidden>Please
-                                input image</div>
-                        </div>
+                                    </select>
+                                    <div id="no-gender" class="alert alert-danger div-text" role="alert" hidden>Please
+                                        select a status</div>
+                                </div>
+                                <div class="form-outline mb-4">
+                                    <label class="form-label identity" for="identity">Project status</label>
+                                    <select class="custom-select" id="status" name="status" required>
+                                        <option value="" selected disabled>Select your status</option>
+                                        <option value="Not started">Not started</option>
+                                        <option value="In Progress">In Progress</option>
+                                        <option value="On Hold">On Hold</option>
+                                        <option value="Completed">Completed</option>
 
-                        <!-- Create Post Button-->
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-success">
-                                Create
-                            </button>
-                        </div>
+                                    </select>
+                                    <div id="no-gender" class="alert alert-danger div-text" role="alert" hidden>Please
+                                        select a status</div>
+                                </div>
+                               
+
+                                <!-- Create Post Button-->
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-success">
+                                        Create
+                                    </button>
+                                </div>
 
                 </form>
             </div>
@@ -127,6 +136,23 @@
                         $('#task_members').append($('<option>', {
                             value: options[i]._id,
                             text: options[i].firstName
+                        }));
+                    }
+                }
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            // make an AJAX call to the API endpoint
+            $.ajax({
+                url: '/projects/resources', // replace with your API endpoint URL
+                success: function (options) {
+                    // populate the dropdown options
+                    for (var i = 0; i < options.length; i++) {
+                        $('#resource').append($('<option>', {
+                            value: options[i]._id,
+                            text: options[i].name
                         }));
                     }
                 }
