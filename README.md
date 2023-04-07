@@ -5,7 +5,7 @@
 
 - [About the Project](#about-the-project)
 - [How to run ](#how-to-run)
--[Development](#development)
+- [Development](#development)
 - [Contributors](#contributors)
 
 ## About The Project
@@ -18,6 +18,7 @@ The aim of this project is to build a product that eases tracking and management
 
 ## Development
 - cloc $(git ls-files) > codelines.txt (Run this line of code after adding anything new in the code)
+- npm test -- --coverage --verbose > testcoverage.txt (To run test cases and understand code coverage)
 ### Contributors
 
 - [Divya Kamath](https://github.com/divya21098)
