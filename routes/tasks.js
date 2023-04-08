@@ -18,19 +18,18 @@ router.get("/:id", async (req, res) => {
 router.post("/addTask", async (req, res) => {
     const body = req.body
     let description = body.description
-    let start_date= body.start_date
-    let end_date = body.end_date
     let task_members = body.task_members
+    let task_status = body.task_status
     let project_id = body.project_id
   const taskList = await tasks.createTask(
     description,
-    start_date,
-    end_date,
+    task_status,
     task_members,
     project_id
 
   );
-  return res.status(200).json(taskList);
+  console.log(taskList)
+  return res.redirect("/projects/"+taskList);
 });
 
 module.exports = router;
