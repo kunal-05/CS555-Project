@@ -22,15 +22,25 @@ const getResourceById = async(id)=>{
     if (!validator.validString(id)) throw "id must be given";
     validator.validId(id);
     id = validator.trimString(id);
+    console.log(id)
     const resourceCollection = await resources();
     const resource = await resourceCollection.findOne({ _id: new ObjectId(id) });
     if (!resource) throw "Resource with that id does not exist";
-    return resource;
+    console.log(resource)
+    return resource.name;
 }
+
+const getAllResources = async () => {
+  const resourceCollection = await resources();
+  const resource = await resourceCollection.find({}).toArray();
+  if (!resource) throw "No resource found";
+  return resource;
+};
 
 module.exports={
     createResource,
-    getResourceById
+    getResourceById,
+    getAllResources
 }
 
 
