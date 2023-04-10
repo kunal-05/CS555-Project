@@ -79,6 +79,7 @@ router
           projects: lastelm[0],
           userLoggedIn: true,
         })
+        
       } catch (e) {
         return res
           .status(500)
