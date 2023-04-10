@@ -1,0 +1,17 @@
+<main>
+
+    <div class="container">
+        {{#each tasks}}
+
+
+        <div class="card mt-3 mb-3 shadow-sm p-3 mb-5 bg-white rounded">
+            <p>Name:{{this.description}}</p>
+            <p>Status:{{this.status}}</p>
+            <p>Task members:{{this.task_members}}</p>
+            <p>Pictures</p>
+            <img src="/tasks/postpic/{{this._id}}" alt="Photos" class="aptPhoto" />
+
+        </div>
+        {{/each}}
+    </div>
+</main>

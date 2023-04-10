@@ -47,14 +47,15 @@ const getTaskById = async (id) => {
 const getTaskByProjectId = async (project_id) => {
   if (!validator.validString(project_id)) throw "id must be given";
   validator.validId(project_id);
-  project_id = validator.trimString(project_id);
+  id = validator.trimString(project_id);
   const taskCollections = await tasks();
-  const task = await taskCollections.findOne({
-    project_id: new ObjectId(project_id),
-  });
+  const task = await taskCollections.find({
+    project_id: id,
+  }).toArray();
   if (!task) throw "task with that project_id does not exist";
   return task;
 };
+
 
 module.exports = {
   createTask,

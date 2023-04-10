@@ -12,7 +12,7 @@
 
             <div class="card mt-3 mb-3 shadow-sm p-3 mb-5 bg-white rounded">
 
-                <form id="posts-form" method="POST" action="/projects/tasks/addTask">
+                <form id="posts-form" method="POST" action="/tasks/addTask" enctype='multipart/form-data'>
                     <input type="hidden" name="project_id" value="{{projects._id}}" />
                     <label class="name" for="name">Task Description</label>
                     <input type="text" class="form-control" id="description" name="description" />
@@ -36,12 +36,7 @@
                             <option value="Completed">Completed</option>
 
                         </select>
-                        <!-- Create Post Button-->
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-success">
-                                Create a task
-                            </button>
-                        </div>
+
                         <!-- Input to upload picture for the Post -->
                         <div class="form-group">
                             <label class="form-label postPicture" for="postPicture">Upload Photo</label>
@@ -51,6 +46,12 @@
                             <div class="alert alert-danger div-text" role="alert" id="no-post-picture" hidden>
                                 Please
                                 input image</div>
+                        </div>
+                        <!-- Create task Button-->
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-success">
+                                Create a task
+                            </button>
                         </div>
                 </form>
             </div>

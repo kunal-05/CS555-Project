@@ -89,10 +89,8 @@ router.get("/:id", async (req, res) => {
       let canComment = true;
 
       const id = req.params.id;
-      //const post = await posts.getPostById(id);
       const projectList = await projects.getProjectById(id);
 
-      //return res.status(200).json(post);
       res.render("projects/projectDetails", {
         projects: projectList,
         canComment: canComment,

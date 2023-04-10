@@ -32,10 +32,10 @@ router.get("/postpic/:id", async (req, res) => {
   ) {
     errors.push("not valid string");
   }
-  req.params.id = validation.validId(req.params.id);
+  req.params.id = validator.validId(req.params.id);
 
-  const getPost = await posts.getPostById(req.params.id);
-  const profilepicData = getPost.postPicture;
+  const getTask = await tasks.getTaskById(id);
+  const profilepicData = getTask.postPicture;
   if (profilepicData == "") {
     errors.push("No Post Pic Found!");
 
@@ -49,19 +49,37 @@ router.get("/postpic/:id", async (req, res) => {
 });
 router.get("/:id", async (req, res) => {
   const id = req.params.id;
-  const taskList = await tasks.getTaskById(id);
-  return res.status(200).json(taskList);
+  const task = await tasks.getTaskById(id);
+  return res.status(200).json(task);
 });
 
+router.get("/user/:id", async (req, res) => {
+  const id = req.params.id;
+  console.log(id);
+  const taskList = await tasks.getTaskByProjectId(id);
+  // return res.status(200).json(taskList);
+  if (req.session.user) {
+    try {
+      return res.render("projects/tasks", {
+        tasks: taskList,
+        userLoggedIn: true,
+        identity: req.session.identity,
+      });
+    } catch (e) {
+      return res.json({ ERROR: e });
+    }
+  }
+});
 router
   .route("/addTask")
   .post(upload.single("postPicture"), async (req, res) => {
     const body = req.body;
+
     let description = body.description;
-    let start_date = body.start_date;
-    let end_date = body.end_date;
     let task_members = body.task_members;
+    let task_status = body.task_status;
     let project_id = body.project_id;
+
     var finalImg = "";
 
     if (!req.file) {
@@ -77,8 +95,7 @@ router
 
     const taskList = await tasks.createTask(
       description,
-      start_date,
-      end_date,
+      task_status,
       task_members,
       project_id,
       finalImg

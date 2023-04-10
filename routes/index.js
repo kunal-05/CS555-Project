@@ -14,11 +14,10 @@ const constructorMethod = (app) => {
 
   app.use("/", userRoutes);
   app.use("/projects", projectRoutes);
-  app.use("/projects/tasks", taskRoutes);
+  app.use("/tasks", taskRoutes);
   app.use("/cust", custRoute);
   app.use("/comments", commentRoutes);
   app.use("/cust", custRoute);
-
 
   app.use("*", (req, res) => {
     res.sendStatus(404);
