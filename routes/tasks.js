@@ -34,7 +34,7 @@ router.get("/postpic/:id", async (req, res) => {
   }
   req.params.id = validator.validId(req.params.id);
 
-  const getTask = await tasks.getTaskById(id);
+  const getTask = await tasks.getTaskById(req.params.id);
   const profilepicData = getTask.postPicture;
   if (profilepicData == "") {
     errors.push("No Post Pic Found!");
