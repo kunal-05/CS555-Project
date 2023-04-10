@@ -79,11 +79,6 @@ router
           projects: lastelm[0],
           userLoggedIn: true,
         })
-        return res.render("projects/projectDetails", {
-          layout: null,
-          projects: lastelm[0],
-          userLoggedIn: true,
-        });
       } catch (e) {
         return res
           .status(500)
