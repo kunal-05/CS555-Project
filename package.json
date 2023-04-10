@@ -27,6 +27,7 @@
     "just-handlebars-helpers": "^1.0.19",
     "moment": "^2.29.4",
     "mongodb": "^5.1.0",
+    "supertest": "^6.3.3",
     "trimstring": "^0.2.5",
     "xss": "^1.0.14"
   },

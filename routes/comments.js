@@ -74,7 +74,12 @@ router
 
         let lastelm = allcomm.slice(-1);
 
-        return res.render("partials/comments", {
+        return res.json({
+          layout: null,
+          projects: lastelm[0],
+          userLoggedIn: true,
+        })
+        return res.render("projects/projectDetails", {
           layout: null,
           projects: lastelm[0],
           userLoggedIn: true,

@@ -3,21 +3,24 @@ const mongoCollections = require("../config/mongoCollections");
 const { ObjectId } = require("mongodb");
 const validation = require("../helper");
 const userData = require("./users");
+const projectData = require("./projects")
 
 const users = mongoCollections.users;
 const projects = mongoCollections.projects;
 
 const createComment = async (projectId, userId, commentText) => {
-
+  
   if (!validation.validId(projectId)) throw "projectId must be given as a string";
   if (!validation.validString(userId)) throw "userId must be given as a string";
   if (!validation.validString(commentText))
     throw "must give comment text as a string";
 
   const projectCollections = await projects();
-  const sameProject = await projectCollections.findOne({
-    _id: new ObjectId(projectId),
-  });
+  // const sameProject = await projectCollections.findOne({
+  //   _id: new ObjectId(projectId),
+  // });
+
+  const sameProject = await projectData.getProjectById(projectId)
 
   if (sameProject === null) throw "Project to which comment added doesnt exist";
   let u = await userData.getUserById(userId)
@@ -47,7 +50,7 @@ const createComment = async (projectId, userId, commentText) => {
 
   // const newId = insertInfo.insertedId;
   const project = await projectCollections.findOne({ _id: new ObjectId(projectId) });
-  if (project === null) throw "No movie found with that id";
+  if (project === null) throw "No project found with that id";
 
   project._id = project._id.toString();
   return project;

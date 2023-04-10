@@ -46,19 +46,22 @@ return projectinfo
 };
 
 const getProjectById = async(id)=>{
-    if (!validator.validString(id)) throw "id must be given";
-    validator.validId(id);
-    id = validator.trimString(id);
-    const projectCollection = await projects();
-    const project = await projectCollection.findOne({ _id: new ObjectId(id) });
-    if (!project) throw "Project with that id does not exist";
-    if(project.length!=0){
-      for (i=0;i<project["resource"].length; i++){
-        console.log(project["resource"][i])
-        project["resource"][i] = await resource.getResourceById(project["resource"][i])
-      }
+  if (!validator.validString(id)) throw "id must be given";
+  validator.validId(id);
+  id = validator.trimString(id);
+  const projectCollection = await projects();
+  const project = await projectCollection.findOne({ _id: new ObjectId(id) });
+  if (!project) throw "Project with that id does not exist";
+  if(project.length!=0){
+    if(!Array.isArray(project["resource"])){
+      project["resource"] = [project["resource"]]
     }
-    return project;
+    for (i=0;i<project["resource"].length; i++){
+      console.log(project["resource"][i])
+      project["resource"][i] = await resource.getResourceById(project["resource"][i])
+    }
+  }
+  return project;
 }
 
 const getProjectsByUserId = async(id)=>{
