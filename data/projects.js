@@ -56,32 +56,13 @@ const createProject = async (
   return projectinfo;
 };
 
-<<<<<<< HEAD
-const getProjectById = async (id) => {
-=======
 const getProjectById = async(id)=>{
->>>>>>> e3351d2d39b173c5e132276dd0f1ef83f90bba02
   if (!validator.validString(id)) throw "id must be given";
   validator.validId(id);
   id = validator.trimString(id);
   const projectCollection = await projects();
   const project = await projectCollection.findOne({ _id: new ObjectId(id) });
   if (!project) throw "Project with that id does not exist";
-<<<<<<< HEAD
-  if (project.length != 0) {
-    if (!Array.isArray(project["resource"])) {
-      project["resource"] = [project["resource"]];
-    }
-    for (i = 0; i < project["resource"].length; i++) {
-      console.log(project["resource"][i]);
-      project["resource"][i] = await resource.getResourceById(
-        project["resource"][i]
-      );
-    }
-  }
-  return project;
-};
-=======
   if(project.length!=0){
     if(!Array.isArray(project["resource"])){
       project["resource"] = [project["resource"]]
@@ -93,7 +74,6 @@ const getProjectById = async(id)=>{
   }
   return project;
 }
->>>>>>> e3351d2d39b173c5e132276dd0f1ef83f90bba02
 
 const getProjectsByUserId = async (id) => {
   // if (Object)
