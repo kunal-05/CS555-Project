@@ -11,7 +11,6 @@ const validation = require('../helper');
 
 // jest.mock('../request');
 
-
 // The assertion for a promise must be returned.
 // async/await can be used.
 

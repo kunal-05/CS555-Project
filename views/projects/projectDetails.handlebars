@@ -9,10 +9,10 @@
             <p>Location:{{projects.location}}</p>
             <p>Budget:{{projects.budget}}</p>
             <p>Resources:{{projects.resource}}</p>
-           
+
             <div class="card mt-3 mb-3 shadow-sm p-3 mb-5 bg-white rounded">
 
-                <form id="posts-form" method="POST" action="/projects/tasks/addTask">
+                <form id="posts-form" method="POST" action="/tasks/addTask" enctype='multipart/form-data'>
                     <input type="hidden" name="project_id" value="{{projects._id}}" />
                     <label class="name" for="name">Task Description</label>
                     <input type="text" class="form-control" id="description" name="description" />
@@ -36,124 +36,149 @@
                             <option value="Completed">Completed</option>
 
                         </select>
-                        <!-- Create Post Button-->
+
+                        <!-- Input to upload picture for the Post -->
+                        <div class="form-group">
+                            <label class="form-label postPicture" for="postPicture">Upload Photo</label>
+                            <input type="file" class="form-control" id="postPicture" name="postPicture"
+                                accept="image/*" />
+
+                            <div class="alert alert-danger div-text" role="alert" id="no-post-picture" hidden>
+                                Please
+                                input image</div>
+                        </div>
+                        <!-- Create task Button-->
                         <div class="form-group">
                             <button type="submit" class="btn btn-success">
                                 Create a task
                             </button>
                         </div>
-
                 </form>
             </div>
 
         </div>
         <div class="gird">
-        <style>
-		.containerl {
-			display: flex;
-			flex-wrap: wrap;
-			justify-content: space-between;
-		}
-		
-		.column {
-			flex-basis: calc(25% - 10px);
-			background-color: #f2f2f2;
-			margin-bottom: 20px;
-			box-sizing: border-box;
-			padding: 10px;
-			text-align: center;
-			border: 1px solid #ddd;
-		}
+            <style>
+                .containerl {
+                    display: flex;
+                    flex-wrap: wrap;
+                    justify-content: space-between;
+                }
 
-		.tile {
-			background-color: white;
-			box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
-			padding: 20px;
-			margin-bottom: 10px;
-			border-radius: 5px;
-			text-align: left;
-			font-size: 16px;
-			line-height: 1.5;
-		}		
-	</style>
-    <div class="containerl">
-		<div class="column">
-            <p>Not Started</p>
-            {{#each projects.tasks}}
-            {{#if (eq this.task_status "Not started")}}
-            <div class="tile">
-                 
-                <p>Name:{{this.description}}</p>
-                </div>
-                {{/if}}
-            
-                {{/each}}
+                .column {
+                    flex-basis: calc(25% - 10px);
+                    background-color: #f2f2f2;
+                    margin-bottom: 20px;
+                    box-sizing: border-box;
+                    padding: 10px;
+                    text-align: center;
+                    border: 1px solid #ddd;
+                }
 
-        </div>
+                .tile {
+                    background-color: white;
+                    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+                    padding: 20px;
+                    margin-bottom: 10px;
+                    border-radius: 5px;
+                    text-align: left;
+                    font-size: 16px;
+                    line-height: 1.5;
+                }
+            </style>
+            <div class="containerl">
+                <div class="column">
+                    <p>Not Started</p>
+                    {{#each projects.tasks}}
+                    {{#if (eq this.task_status "Not started")}}
+                    <div class="tile">
 
-		<div class="column"><p>On Hold</p>
-            {{#each projects.tasks}}
-            {{#if (eq this.task_status "On Hold")}}
-            <div class="tile">
-                 
-                <p>Name:{{this.description}}</p>
+                        <p>Name:{{this.description}}</p>
+                        <p>Task members:{{this.task_members}}</p>
+                        <p>Pictures</p>
+                        <img src="/tasks/postpic/{{this._id}}" alt="Photos" class="aptPhoto" />
+                    </div>
+                    {{/if}}
+
+                    {{/each}}
+
                 </div>
-                {{/if}}
-            
-                {{/each}}
-</div>
-		<div class="column"><p>In Progress</p>
-            {{#each projects.tasks}}
-            {{#if (eq this.task_status "In Progress")}}
-            <div class="tile">
-                 
-                <p>Name:{{this.description}}</p>
+
+                <div class="column">
+                    <p>On Hold</p>
+                    {{#each projects.tasks}}
+                    {{#if (eq this.task_status "On Hold")}}
+                    <div class="tile">
+
+                        <p>Name:{{this.description}}</p>
+                        <p>Task members:{{this.task_members}}</p>
+                        <p>Pictures</p>
+                        <img src="/tasks/postpic/{{this._id}}" alt="Photos" class="aptPhoto" />
+                    </div>
+                    {{/if}}
+
+                    {{/each}}
                 </div>
-                {{/if}}
-            
-                {{/each}}
-</div>
-		<div class="column"><p>Completed</p>
-            {{#each projects.tasks}}
-            {{#if (eq this.task_status "Completed")}}
-            <div class="tile">
-                 
-                <p>Name:{{this.description}}</p>
+                <div class="column">
+                    <p>In Progress</p>
+                    {{#each projects.tasks}}
+                    {{#if (eq this.task_status "In Progress")}}
+                    <div class="tile">
+
+                        <p>Name:{{this.description}}</p>
+                        <p>Task members:{{this.task_members}}</p>
+                        <p>Pictures</p>
+                        <img src="/tasks/postpic/{{this._id}}" alt="Photos" class="aptPhoto" />
+                    </div>
+                    {{/if}}
+
+                    {{/each}}
                 </div>
-                {{/if}}
-            
-                {{/each}}
-</div>
-	</div>
-        {{!-- <div class="card mt-3 mb-3 shadow-sm p-3 mb-5 bg-white rounded">
-            <p>Not Started:</p>
-            {{#each projects.tasks}}
-            {{#if (eq this.task_status "Not started")}}
-            <div class="card mt-3 mb-3 shadow-sm p-3 mb-5 bg-white rounded">
-                <p>Name:{{this.description}}</p>
-                <p>Status:{{this.task_status}}</p>
-                {{/if}}
-                {{/each}}
+                <div class="column">
+                    <p>Completed</p>
+                    {{#each projects.tasks}}
+                    {{#if (eq this.task_status "Completed")}}
+                    <div class="tile">
+
+                        <p>Name:{{this.description}}</p>
+                        <p>Task members:{{this.task_members}}</p>
+                        <p>Pictures</p>
+                        <img src="/tasks/postpic/{{this._id}}" alt="Photos" class="aptPhoto" />
+                    </div>
+                    {{/if}}
+
+                    {{/each}}
+                </div>
             </div>
-        </div>
-
-        <div class="card mt-3 mb-3 shadow-sm p-3 mb-5 bg-white rounded">
-            <p>On Hold:</p>
-            {{#each projects.tasks}}
-            {{#if (eq this.task_status "On Hold")}}
-            <div class="card mt-3 mb-3 shadow-sm p-3 mb-5 bg-white rounded">
-                <p>Name:{{this.description}}</p>
-                <p>Status:{{this.task_status}}</p>
-                {{/if}}
-                {{/each}}
+            {{!-- <div class="card mt-3 mb-3 shadow-sm p-3 mb-5 bg-white rounded">
+                <p>Not Started:</p>
+                {{#each projects.tasks}}
+                {{#if (eq this.task_status "Not started")}}
+                <div class="card mt-3 mb-3 shadow-sm p-3 mb-5 bg-white rounded">
+                    <p>Name:{{this.description}}</p>
+                    <p>Status:{{this.task_status}}</p>
+                    {{/if}}
+                    {{/each}}
+                </div>
             </div>
-        </div>
 
-        <div class="card mt-3 mb-3 shadow-sm p-3 mb-5 bg-white rounded">
-            <p>In Progress:</p>
-            {{#each projects.tasks}}
-           
-            {{#if (eq this.task_status "In Progress")}}
+            <div class="card mt-3 mb-3 shadow-sm p-3 mb-5 bg-white rounded">
+                <p>On Hold:</p>
+                {{#each projects.tasks}}
+                {{#if (eq this.task_status "On Hold")}}
+                <div class="card mt-3 mb-3 shadow-sm p-3 mb-5 bg-white rounded">
+                    <p>Name:{{this.description}}</p>
+                    <p>Status:{{this.task_status}}</p>
+                    {{/if}}
+                    {{/each}}
+                </div>
+            </div>
+
+            <div class="card mt-3 mb-3 shadow-sm p-3 mb-5 bg-white rounded">
+                <p>In Progress:</p>
+                {{#each projects.tasks}}
+
+                {{#if (eq this.task_status "In Progress")}}
                 <p>Name:{{this.description}}</p>
                 <p>Status:{{this.task_status}}</p>
                 <br>
@@ -214,101 +239,102 @@
             });
         </script>
 
-<div class="card postcomments px-2">
-    <input type="hidden" name="projects_id" id="projects" value="{{projects._id}}" />
-    
-    <div class="form-group mt-2">
-        <form id="comments-form" method="POST" action="/comments/{{projects._id}}">
-            <label class="commentText" for="commentText">Enter a comment</label>
-            <div class="input-group mb-3">
-                <br>
-                <input type="text" class="form-control" id="commentText" name="commentText" placeholder="Enter comment here" />
-                <div class="input-group-append">
-                    <span class="input-group-button" id="basic-addon2">
-                        <button type="button" id="submit-comment" class="btn btn-primary">Create</button>
-                    </span>
-                </div>
+        <div class="card postcomments px-2">
+            <input type="hidden" name="projects_id" id="projects" value="{{projects._id}}" />
+
+            <div class="form-group mt-2">
+                <form id="comments-form" method="POST" action="/comments/{{projects._id}}">
+                    <label class="commentText" for="commentText">Enter a comment</label>
+                    <div class="input-group mb-3">
+                        <br>
+                        <input type="text" class="form-control" id="commentText" name="commentText"
+                            placeholder="Enter comment here" />
+                        <div class="input-group-append">
+                            <span class="input-group-button" id="basic-addon2">
+                                <button type="button" id="submit-comment" class="btn btn-primary">Create</button>
+                            </span>
+                        </div>
+                    </div>
+                </form>
             </div>
-        </form>
-    </div>
-    
-    <div id="empty-comment" class="alert alert-info div-text" hidden></div>
-    
-    <div id="comment-area">
-        {{#each projects.comments}}
-        <div class="chat">
-                            <div class="yours messages">
-                                <div class="message last">
-                                    {{this.commentText}}
-                                </div>
-                                <div class="bold"> - {{this.userId}}</div>
-                                <hr>
-                            </div>
-        </div>
-         {{/each}}
-        <div class="comments">
-           <div>{{ comment.commentText }}</div> 
-            <div class="bold">{{ comment.userId }}</div>
-        </div>
-        
-    </div>
-</div>
 
-<script>
-    $(document).ready(function() {
-    var projectsId = $('#projects').val();
-    var commentsArea = $('#comment-area');
-    
-    // load the comments from the server
-    $.ajax({
-        type: 'GET',
-        url: '/comments/' + projectsId,
-        success: function(comments) {
-            // iterate over the comments and add them to the comments area
-            comments.forEach(function(comment) {
-                var commentDiv = $('<div class="comments">' + comment.userId + '<br>' + comment.commentText + '</div>');
-                commentsArea.append(commentDiv);
+            <div id="empty-comment" class="alert alert-info div-text" hidden></div>
+
+            <div id="comment-area">
+                {{#each projects.comments}}
+                <div class="chat">
+                    <div class="yours messages">
+                        <div class="message last">
+                            {{this.commentText}}
+                        </div>
+                        <div class="bold"> - {{this.userId}}</div>
+                        <hr>
+                    </div>
+                </div>
+                {{/each}}
+                <div class="comments">
+                    <div>{{ comment.commentText }}</div>
+                    <div class="bold">{{ comment.userId }}</div>
+                </div>
+
+            </div>
+        </div>
+
+        <script>
+            $(document).ready(function () {
+                var projectsId = $('#projects').val();
+                var commentsArea = $('#comment-area');
+
+                // load the comments from the server
+                $.ajax({
+                    type: 'GET',
+                    url: '/comments/' + projectsId,
+                    success: function (comments) {
+                        // iterate over the comments and add them to the comments area
+                        comments.forEach(function (comment) {
+                            var commentDiv = $('<div class="comments">' + comment.userId + '<br>' + comment.commentText + '</div>');
+                            commentsArea.append(commentDiv);
+                        });
+                    },
+                    error: function (xhr, status, error) {
+                        console.log(error);
+                    }
+                });
+
+                $('#submit-comment').click(function (e) {
+                    // your existing code for submitting new comments
+                    e.preventDefault();
+                    var commentText = $('#commentText').val();
+                    var projectsId = $('#projects').val();
+                    var newComments = $("#comment-area");
+
+                    if (commentText === '') {
+                        $('#empty-comment').html('Please enter a comment').show();
+                        return false;
+                    }
+
+                    $.ajax({
+                        type: 'POST',
+                        url: '/comments/' + projectsId,
+                        data: {
+                            commentText: commentText
+                        },
+                        success: function (response) {
+                            // add the new comment to the comments area
+                            var comment = $('<div class="comments"><div>' + response.projects.commentText + '<br></div><div class="bold"> - ' + response.projects.userId + '</div></div>');
+                            newComments.append(comment);
+
+                            // reset the comment input field
+                            $('#commentText').val('');
+                        },
+                        error: function (xhr, status, error) {
+                            console.log(error);
+                        }
+                    });
+                });
             });
-        },
-        error: function(xhr, status, error) {
-            console.log(error);
-        }
-    });
 
-    $('#submit-comment').click(function(e) {
-        // your existing code for submitting new comments
-                e.preventDefault();
-        var commentText = $('#commentText').val();
-        var projectsId = $('#projects').val();
-        var newComments = $("#comment-area");
-        
-        if (commentText === '') {
-            $('#empty-comment').html('Please enter a comment').show();
-            return false;
-        }
-        
-        $.ajax({
-            type: 'POST',
-            url: '/comments/' + projectsId,
-            data: {
-                commentText: commentText
-            },
-            success: function(response) {
-                // add the new comment to the comments area
-                var comment = $('<div class="comments"><div>' + response.projects.commentText + '<br></div><div class="bold"> - ' + response.projects.userId + '</div></div>');
-                newComments.append(comment);
-                
-                // reset the comment input field
-                $('#commentText').val('');
-            },
-            error: function(xhr, status, error) {
-                console.log(error);
-            }
-        });
-    });
-});
-
-</script>
-</div>
+        </script>
+    </div>
 
 </main>
