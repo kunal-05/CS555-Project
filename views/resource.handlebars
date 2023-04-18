@@ -1,0 +1,52 @@
+<style>
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 1rem;
+    background-color: #fff;
+    box-shadow: 0 1px 2px rgba(0,0,0,.1);
+  }
+
+  th, td {
+    padding: 0.75rem;
+    text-align: left;
+    vertical-align: top;
+    border-top: 1px solid #dee2e6;
+  }
+
+  th {
+    background-color: #343a40;
+    color: #fff;
+    border-color: #454d55;
+  }
+
+  tr:nth-child(even) {
+    background-color: #f8f9fa;
+  }
+
+  th:first-child, td:first-child {
+    padding-left: 1.25rem;
+  }
+
+  th:last-child, td:last-child {
+    padding-right: 1.25rem;
+  }
+</style>
+<table>
+  <thead>
+    <tr>
+      <th>Item</th>
+      <th>Count</th>
+      <th>Cost</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each allResource}}
+      <tr>
+        <td>{{this.name}}</td>
+        <td>{{this.count}}</td>
+        <td>${{this.cost}}</td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>
