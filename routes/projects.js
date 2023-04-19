@@ -31,6 +31,22 @@ router.get("/resources",async(req,res)=>{
 
 })
 
+router.get("/resourcesPage",async(req,res)=>{
+  if (req.session.user) {
+    try {
+      const allResource = await resources.getAllResources();
+      return res.render("resource", {
+        allResource: allResource,
+        userLoggedIn: true,
+        identity: req.session.identity,
+      });
+    } catch (e) {
+      return res.json({ ERROR: e });
+    }
+  }
+
+})
+
 router.get("/addProject", async (req, res) => {
   if (req.session.user) {
     res.render("projects/createProject", { userLoggedIn: true });

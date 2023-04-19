@@ -1,17 +1,19 @@
-      39 text files.
-classified 38 files      38 unique files.                              
-       7 files ignored.
+      44 text files.
+classified 43 files      43 unique files.                              
+      14 files ignored.
 
-github.com/AlDanial/cloc v 1.96  T=0.02 s (2223.9 files/s, 159770.7 lines/s)
+github.com/AlDanial/cloc v 1.96  T=0.03 s (1285.0 files/s, 97095.1 lines/s)
 -------------------------------------------------------------------------------
 Language                     files          blank        comment           code
 -------------------------------------------------------------------------------
-JavaScript                      21            167            100           1253
-Handlebars                      11            195            105            610
+JavaScript                      23            202            126           1478
+Handlebars                      12            213            112            750
 HTML                             2             10              7            206
-JSON                             2              0              0             38
-Markdown                         1              7              1             21
+JSON                             2              0              0             44
+Text                             1              6              0             26
+Markdown                         1              7              1             22
+YAML                             1              8              2             19
 CSS                              1              0              2              8
 -------------------------------------------------------------------------------
-SUM:                            38            379            215           2136
+SUM:                            43            446            250           2553
 -------------------------------------------------------------------------------

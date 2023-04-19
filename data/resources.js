@@ -37,10 +37,34 @@ const getAllResources = async () => {
   return resource;
 };
 
+const updateResources = async (res)=>{
+  const resourceCollection = await resources();
+  if (!Array.isArray(res)) {
+    res = [res];
+  }
+  for(let r in res){
+    const resource = await resourceCollection.findOne({_id:new ObjectId(res[r])});
+    resource.count = resource.count - 1
+    const updateResource = await resourceCollection.updateOne(
+      { _id: new ObjectId(resource._id) },
+      { $set: resource }
+    );
+    if (updateResource.modifiedCount === 0 && updateResource.deletedCount === 0){
+      throw "could not update resource";
+    }
+  }
+  return 
+  }
+  
+
+
+
+
 module.exports={
     createResource,
     getResourceById,
-    getAllResources
+    getAllResources,
+    updateResources
 }
 
 
