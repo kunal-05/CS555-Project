@@ -3,7 +3,7 @@ const { ObjectId } = require("mongodb");
 // const { projects } = require("../config/mongoCollections");
 const mongoCollections = require("../config/mongoCollections");
 const router = express.Router();
-const moment = require("moment")
+const moment = require("moment");
 const data = require("../data/");
 const projects = data.projects;
 const resources = require("../data/resources");
@@ -25,11 +25,10 @@ router.get("/", async (req, res) => {
   // const projectList = await projects.getProjectById(id);
   // return res.status(200).json(projectList);
 });
-router.get("/resources",async(req,res)=>{
+router.get("/resources", async (req, res) => {
   const allResource = await resources.getAllResources();
-  return res.json(allResource)
-
-})
+  return res.json(allResource);
+});
 
 router.get("/addProject", async (req, res) => {
   if (req.session.user) {
@@ -51,16 +50,16 @@ router.post("/addProject", async (req, res) => {
   let task_members = body.task_members;
   let request_id = body.request_id;
   let resources = body.resource;
-  name = validator.validString(name)
-  location = validator.validString(location)
-  size = validator.validString(size)
-  owner = validator.validId(owner)
-  request_id = validator.validId(request_id)
-  if (!moment(startdate, 'MM/DD/YYYY',true).isValid()){
-    throw "Not valid date format (mm/dd/yyyy)"
+  name = validator.validString(name);
+  location = validator.validString(location);
+  size = validator.validString(size);
+  owner = validator.validId(owner);
+  request_id = validator.validId(request_id);
+  if (!moment(startdate, "MM/DD/YYYY", true).isValid()) {
+    throw "Not valid date format (mm/dd/yyyy)";
   }
-  if (!moment(endate, 'MM/DD/YYYY',true).isValid()){
-    throw "Not valid date format (mm/dd/yyyy)"
+  if (!moment(endate, "MM/DD/YYYY", true).isValid()) {
+    throw "Not valid date format (mm/dd/yyyy)";
   }
   const projectList = await projects.createProject(
     name,
@@ -74,7 +73,7 @@ router.post("/addProject", async (req, res) => {
     request_id,
     resources
   );
-  console.log(projectList)
+  console.log(projectList);
   return res.redirect("/projects");
 });
 
@@ -95,6 +94,8 @@ router.get("/:id", async (req, res) => {
         projects: projectList,
         canComment: canComment,
         userLoggedIn: true,
+        identity: req.session.identity,
+
         hasErrors: true,
       });
     } catch (e) {
@@ -107,7 +108,5 @@ router.get("/:id", async (req, res) => {
   }
   //return res.status(200).json(projectList);
 });
-
-
 
 module.exports = router;

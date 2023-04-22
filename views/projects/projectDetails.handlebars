@@ -3,12 +3,16 @@
     <div class="container">
 
         <div class="card mt-3 mb-3 shadow-sm p-3 mb-5 bg-white rounded">
+            {{!-- {{#if userLoggedIn}} --}}
+
             <p>Name:{{projects.name}}</p>
             <p>Start date:{{projects.start_date}}</p>
             <p>Status:{{projects.status}}</p>
             <p>Location:{{projects.location}}</p>
             <p>Budget:{{projects.budget}}</p>
             <p>Resources:{{projects.resource}}</p>
+
+            {{!-- {{#if (eq identity "admin")}} --}}
 
             <div class="card mt-3 mb-3 shadow-sm p-3 mb-5 bg-white rounded">
 
@@ -56,7 +60,8 @@
                         </div>
                 </form>
             </div>
-
+            {{!-- {{/if}} --}}
+            {{!-- {{/if}} --}}
         </div>
         <div class="gird">
             <style>
@@ -316,5 +321,5 @@
 
             </script>
         </div>
-
+    </div>
 </main>
