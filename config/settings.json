@@ -1,6 +1,6 @@
 {
     "mongoConfig": {
-      "serverUrl":"mongodb://localhost:27017",
+      "serverUrl":"mongodb+srv://scrummedup:Test123@solar.rbc31ld.mongodb.net/?retryWrites=true&w=majority",
       "database": "SolarEPC"
     }
   }
