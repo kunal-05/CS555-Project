@@ -112,6 +112,7 @@ router.get("/:id", async (req, res) => {
         canComment: canComment,
         userLoggedIn: true,
         hasErrors: true,
+        identity: req.session.identity,
       });
     } catch (e) {
       return res
