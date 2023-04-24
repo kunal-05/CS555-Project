@@ -11,7 +11,7 @@
             <p>Resources:{{projects.resource}}</p>
 
             <div class="card mt-3 mb-3 shadow-sm p-3 mb-5 bg-white rounded">
-
+                 {{#if (eq identity "admin")}}
                 <form id="posts-form" method="POST" action="/tasks/addTask" enctype='multipart/form-data'>
                     <input type="hidden" name="project_id" value="{{projects._id}}" />
                     <label class="name" for="name">Task Description</label>
@@ -54,6 +54,7 @@
                             </button>
                         </div>
                 </form>
+                {{/if}}
             </div>
 
         </div>

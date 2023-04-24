@@ -105,6 +105,7 @@ router.get("/login", async (req, res) => {
 router.post("/login", async (req, res) => {
   const emailId = validator.trimString(req.body.emailId);
   const password = req.body.password;
+  const iden = req.body.identity;
   let errors = [];
   try {
     if (!validator.validEmail(emailId)) {
@@ -129,6 +130,9 @@ router.post("/login", async (req, res) => {
   const myUser = await userCollection.findOne({
     emailId: emailId.toLowerCase(),
   });
+  if(myUser.identity!==iden){
+    errors.push("Incorrect access")
+  }
 
   if (!myUser) errors.push("Emailid or password does not match.");
   if (errors.length > 0) {
