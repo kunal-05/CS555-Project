@@ -53,6 +53,7 @@ const createProject = async (
     throw "Could not create the project";
   let newId = insertInfo.insertedId;
   const projectinfo = await getProjectById(newId.toString());
+  await resource.updateResources(resources)
   return projectinfo;
 };
 
