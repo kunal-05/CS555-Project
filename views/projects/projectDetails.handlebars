@@ -3,7 +3,6 @@
     <div class="container">
 
         <div class="card mt-3 mb-3 shadow-sm p-3 mb-5 bg-white rounded">
-            {{!-- {{#if userLoggedIn}} --}}
 
             <p>Name:{{projects.name}}</p>
             <p>Start date:{{projects.start_date}}</p>
@@ -12,10 +11,10 @@
             <p>Budget:{{projects.budget}}</p>
             <p>Resources:{{projects.resource}}</p>
 
-            {{!-- {{#if (eq identity "admin")}} --}}
+
 
             <div class="card mt-3 mb-3 shadow-sm p-3 mb-5 bg-white rounded">
-
+                {{#if (eq identity "admin")}}
                 <form id="posts-form" method="POST" action="/tasks/addTask" enctype='multipart/form-data'>
                     <input type="hidden" name="project_id" value="{{projects._id}}" />
                     <label class="name" for="name">Task Description</label>
@@ -60,8 +59,8 @@
                         </div>
                 </form>
             </div>
-            {{!-- {{/if}} --}}
-            {{!-- {{/if}} --}}
+            {{/if}}
+
         </div>
         <div class="gird">
             <style>
