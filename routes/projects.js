@@ -113,6 +113,7 @@ router.get("/:id", async (req, res) => {
         identity: req.session.identity,
 
         hasErrors: true,
+        identity: req.session.identity,
       });
     } catch (e) {
       return res
