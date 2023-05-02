@@ -3,6 +3,7 @@
     <div class="container">
 
         <div class="card mt-3 mb-3 shadow-sm p-3 mb-5 bg-white rounded">
+
             <p>Name:{{projects.name}}</p>
             <p>Start date:{{projects.start_date}}</p>
             <p>Status:{{projects.status}}</p>
@@ -10,8 +11,10 @@
             <p>Budget:{{projects.budget}}</p>
             <p>Resources:{{projects.resource}}</p>
 
+
+
             <div class="card mt-3 mb-3 shadow-sm p-3 mb-5 bg-white rounded">
-                 {{#if (eq identity "admin")}}
+                {{#if (eq identity "admin")}}
                 <form id="posts-form" method="POST" action="/tasks/addTask" enctype='multipart/form-data'>
                     <input type="hidden" name="project_id" value="{{projects._id}}" />
                     <label class="name" for="name">Task Description</label>
@@ -34,6 +37,7 @@
                             <option value="In Progress">In Progress</option>
                             <option value="On Hold">On Hold</option>
                             <option value="Completed">Completed</option>
+                            <option value="Inspection">Inspection</option>
 
                         </select>
 
@@ -56,6 +60,7 @@
                 </form>
                 {{/if}}
             </div>
+            {{/if}}
 
         </div>
         <div class="gird">
@@ -149,193 +154,172 @@
                     {{/if}}
 
                     {{/each}}
-                </div>
-            </div>
-            {{!-- <div class="card mt-3 mb-3 shadow-sm p-3 mb-5 bg-white rounded">
-                <p>Not Started:</p>
-                {{#each projects.tasks}}
-                {{#if (eq this.task_status "Not started")}}
-                <div class="card mt-3 mb-3 shadow-sm p-3 mb-5 bg-white rounded">
-                    <p>Name:{{this.description}}</p>
-                    <p>Status:{{this.task_status}}</p>
+                </div>\ <div class="column">
+                    <p>Completed</p>
+                    {{#each projects.tasks}}
+                    {{#if (eq this.task_status "Completed")}}
+                    <div class="tile">
+
+                        <p>Name:{{this.description}}</p>
+                        <p>Task members:{{this.task_members}}</p>
+                        <p>Pictures</p>
+                        <img src="/tasks/postpic/{{this._id}}" alt="Photos" class="aptPhoto" />
+                    </div>
                     {{/if}}
+
+                    {{/each}}
+                </div>
+
+                <div class="column">
+                    <p>Inspection</p>
+                    {{#each projects.tasks}}
+                    {{#if (eq this.task_status "Inspection")}}
+                    <div class="tile">
+
+                        <p>Name:{{this.description}}</p>
+                        <p>Task members:{{this.task_members}}</p>
+                        <p>Pictures</p>
+                        <img src="/tasks/postpic/{{this._id}}" alt="Photos" class="aptPhoto" />
+                    </div>
+                    {{/if}}
+
                     {{/each}}
                 </div>
             </div>
 
-            <div class="card mt-3 mb-3 shadow-sm p-3 mb-5 bg-white rounded">
-                <p>On Hold:</p>
-                {{#each projects.tasks}}
-                {{#if (eq this.task_status "On Hold")}}
-                <div class="card mt-3 mb-3 shadow-sm p-3 mb-5 bg-white rounded">
-                    <p>Name:{{this.description}}</p>
-                    <p>Status:{{this.task_status}}</p>
-                    {{/if}}
-                    {{/each}}
-                </div>
-            </div>
 
-            <div class="card mt-3 mb-3 shadow-sm p-3 mb-5 bg-white rounded">
-                <p>In Progress:</p>
-                {{#each projects.tasks}}
-
-                {{#if (eq this.task_status "In Progress")}}
-                <p>Name:{{this.description}}</p>
-                <p>Status:{{this.task_status}}</p>
-                <br>
-                <br>
-                {{/if}}
-                {{/each}}
-            </div>
-        </div>
-
-        <div class="card mt-3 mb-3 shadow-sm p-3 mb-5 bg-white rounded">
-            <p>Completed:</p>
-            {{#each projects.tasks}}
-            {{#if (eq this.task_status "Completed")}}
-            <div class="card mt-3 mb-3 shadow-sm p-3 mb-5 bg-white rounded">
-                <p>Name:{{this.description}}</p>
-                <p>Status:{{this.task_status}}</p>
-                {{/if}}
-                {{/each}}
-            </div>
-
-
-
-        </div> --}}
-
-        <script>
-            $(document).ready(function () {
-                // make an AJAX call to the API endpoint
-                $.ajax({
-                    url: '/allEmployees', // replace with your API endpoint URL
-                    success: function (options) {
-                        // populate the dropdown options
-                        for (var i = 0; i < options.length; i++) {
-                            $('#task_members').append($('<option>', {
-                                value: options[i]._id,
-                                text: options[i].firstName
-                            }));
-                        }
-                    }
-                });
-            });
-        </script>
-
-        <script>
-            $(document).ready(function () {
-                // make an AJAX call to the API endpoint
-                $.ajax({
-                    url: '/projects/resources', // replace with your API endpoint URL
-                    success: function (options) {
-                        // populate the dropdown options
-                        for (var i = 0; i < options.length; i++) {
-                            $('#resource').append($('<p>', {
-                                value: options[i]._id,
-                                text: options[i].firstName
-                            }));
-                        }
-                    }
-                });
-            });
-        </script>
-
-        <div class="card postcomments px-2">
-            <input type="hidden" name="projects_id" id="projects" value="{{projects._id}}" />
-
-            <div class="form-group mt-2">
-                <form id="comments-form" method="POST" action="/comments/{{projects._id}}">
-                    <label class="commentText" for="commentText">Enter a comment</label>
-                    <div class="input-group mb-3">
-                        <br>
-                        <input type="text" class="form-control" id="commentText" name="commentText"
-                            placeholder="Enter comment here" />
-                        <div class="input-group-append">
-                            <span class="input-group-button" id="basic-addon2">
-                                <button type="button" id="submit-comment" class="btn btn-primary">Create</button>
-                            </span>
-                        </div>
-                    </div>
-                </form>
-            </div>
-
-            <div id="empty-comment" class="alert alert-info div-text" hidden></div>
-
-            <div id="comment-area">
-                {{#each projects.comments}}
-                <div class="chat">
-                    <div class="yours messages">
-                        <div class="message last">
-                            {{this.commentText}}
-                        </div>
-                        <div class="bold"> - {{this.userId}}</div>
-                        <hr>
-                    </div>
-                </div>
-                {{/each}}
-                <div class="comments">
-                    <div>{{ comment.commentText }}</div>
-                    <div class="bold">{{ comment.userId }}</div>
-                </div>
-
-            </div>
-        </div>
-
-        <script>
-            $(document).ready(function () {
-                var projectsId = $('#projects').val();
-                var commentsArea = $('#comment-area');
-
-                // load the comments from the server
-                $.ajax({
-                    type: 'GET',
-                    url: '/comments/' + projectsId,
-                    success: function (comments) {
-                        // iterate over the comments and add them to the comments area
-                        comments.forEach(function (comment) {
-                            var commentDiv = $('<div class="comments">' + comment.userId + '<br>' + comment.commentText + '</div>');
-                            commentsArea.append(commentDiv);
-                        });
-                    },
-                    error: function (xhr, status, error) {
-                        console.log(error);
-                    }
-                });
-
-                $('#submit-comment').click(function (e) {
-                    // your existing code for submitting new comments
-                    e.preventDefault();
-                    var commentText = $('#commentText').val();
-                    var projectsId = $('#projects').val();
-                    var newComments = $("#comment-area");
-
-                    if (commentText === '') {
-                        $('#empty-comment').html('Please enter a comment').show();
-                        return false;
-                    }
-
+            <script>
+                $(document).ready(function () {
+                    // make an AJAX call to the API endpoint
                     $.ajax({
-                        type: 'POST',
-                        url: '/comments/' + projectsId,
-                        data: {
-                            commentText: commentText
-                        },
-                        success: function (response) {
-                            // add the new comment to the comments area
-                            var comment = $('<div class="comments"><div>' + response.projects.commentText + '<br></div><div class="bold"> - ' + response.projects.userId + '</div></div>');
-                            newComments.append(comment);
+                        url: '/allEmployees', // replace with your API endpoint URL
+                        success: function (options) {
+                            // populate the dropdown options
+                            for (var i = 0; i < options.length; i++) {
+                                $('#task_members').append($('<option>', {
+                                    value: options[i]._id,
+                                    text: options[i].firstName
+                                }));
+                            }
+                        }
+                    });
+                });
+            </script>
 
-                            // reset the comment input field
-                            $('#commentText').val('');
+            <script>
+                $(document).ready(function () {
+                    // make an AJAX call to the API endpoint
+                    $.ajax({
+                        url: '/projects/resources', // replace with your API endpoint URL
+                        success: function (options) {
+                            // populate the dropdown options
+                            for (var i = 0; i < options.length; i++) {
+                                $('#resource').append($('<p>', {
+                                    value: options[i]._id,
+                                    text: options[i].firstName
+                                }));
+                            }
+                        }
+                    });
+                });
+            </script>
+
+            <div class="card postcomments px-2">
+                <input type="hidden" name="projects_id" id="projects" value="{{projects._id}}" />
+
+                <div class="form-group mt-2">
+                    <form id="comments-form" method="POST" action="/comments/{{projects._id}}">
+                        <label class="commentText" for="commentText">Enter a comment</label>
+                        <div class="input-group mb-3">
+                            <br>
+                            <input type="text" class="form-control" id="commentText" name="commentText"
+                                placeholder="Enter comment here" />
+                            <div class="input-group-append">
+                                <span class="input-group-button" id="basic-addon2">
+                                    <button type="button" id="submit-comment" class="btn btn-primary">Create</button>
+                                </span>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div id="empty-comment" class="alert alert-info div-text" hidden></div>
+
+                <div id="comment-area">
+                    {{#each projects.comments}}
+                    <div class="chat">
+                        <div class="yours messages">
+                            <div class="message last">
+                                {{this.commentText}}
+                            </div>
+                            <div class="bold"> - {{this.userId}}</div>
+                            <hr>
+                        </div>
+                    </div>
+                    {{/each}}
+                    <div class="comments">
+                        <div>{{ comment.commentText }}</div>
+                        <div class="bold">{{ comment.userId }}</div>
+                    </div>
+
+                </div>
+            </div>
+
+            <script>
+                $(document).ready(function () {
+                    var projectsId = $('#projects').val();
+                    var commentsArea = $('#comment-area');
+
+                    // load the comments from the server
+                    $.ajax({
+                        type: 'GET',
+                        url: '/comments/' + projectsId,
+                        success: function (comments) {
+                            // iterate over the comments and add them to the comments area
+                            comments.forEach(function (comment) {
+                                var commentDiv = $('<div class="comments">' + comment.userId + '<br>' + comment.commentText + '</div>');
+                                commentsArea.append(commentDiv);
+                            });
                         },
                         error: function (xhr, status, error) {
                             console.log(error);
                         }
                     });
+
+                    $('#submit-comment').click(function (e) {
+                        // your existing code for submitting new comments
+                        e.preventDefault();
+                        var commentText = $('#commentText').val();
+                        var projectsId = $('#projects').val();
+                        var newComments = $("#comment-area");
+
+                        if (commentText === '') {
+                            $('#empty-comment').html('Please enter a comment').show();
+                            return false;
+                        }
+
+                        $.ajax({
+                            type: 'POST',
+                            url: '/comments/' + projectsId,
+                            data: {
+                                commentText: commentText
+                            },
+                            success: function (response) {
+                                // add the new comment to the comments area
+                                var comment = $('<div class="comments"><div>' + response.projects.commentText + '<br></div><div class="bold"> - ' + response.projects.userId + '</div></div>');
+                                newComments.append(comment);
+
+                                // reset the comment input field
+                                $('#commentText').val('');
+                            },
+                            error: function (xhr, status, error) {
+                                console.log(error);
+                            }
+                        });
+                    });
                 });
-            });
 
-        </script>
+            </script>
+        </div>
     </div>
-
 </main>
